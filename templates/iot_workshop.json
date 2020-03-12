@@ -598,6 +598,12 @@
           "roleType": "NIFI_REGISTRY_SERVER"
         }
       ],
+     "serviceConfigs": [
+       {
+          "name": "nifitoolkitca_service",
+          "ref": "nifitoolkitca"
+       }
+     ],
       "serviceType": "NIFIREGISTRY"
     },
     {
