@@ -43,8 +43,8 @@ To install Schema Registry, you must use an appropriate template file, like `all
 ```
 sudo su -
 yum install -y git
-git clone https://github.com/fabiog1901/SingleNodeCDPCluster.git
-cd SingleNodeCDPCluster
+git clone https://github.com/wangxf2000/OneNodeCDPCluster.git
+cd OneNodeCDPCluster
 ```
 
 The script `setup.sh` takes 3 arguments:
