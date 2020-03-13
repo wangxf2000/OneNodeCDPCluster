@@ -490,7 +490,29 @@
         }
       ],
       "serviceType": "YARN"
-    },
+    },{
+            "refName": "schemaregistry",
+            "roleConfigGroups": [
+                {
+                    "base": true,
+                    "configs": [
+                        {
+                            "name": "schema.registry.storage.connector.password",
+                            "variable": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password"
+                        }
+                    ],
+                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE",
+                    "roleType": "SCHEMA_REGISTRY_SERVER"
+                }
+            ],
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service",
+                    "ref": "zookeeper"
+                }
+            ],
+            "serviceType": "SCHEMAREGISTRY"
+        },
     {
       "refName": "hbase",
       "roleConfigGroups": [
