@@ -181,10 +181,6 @@
     {
         "product": "STREAMS_MESSAGING_MANAGER",
         "version": "2.1.0.2.0.1.0-29"
-    },
-    {
-        "product": "STREAMS_REPLICATION_MANAGER",
-        "version": "1.0.0.2.0.1.0-29"
     }
   ],
   "repositories": [
