@@ -13,6 +13,7 @@ echo "-- Install Java OpenJDK8 and other tools"
 yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools
 yum install -y epel-release
 yum install -y python-pip
+pip install --upgrade pip
 
 cp /usr/lib/systemd/system/rngd.service /etc/systemd/system/
 systemctl daemon-reload
@@ -222,10 +223,8 @@ done
 
 echo "-- Now CM is started and the next step is to automate using the CM API"
 
-yum install -y epel-release
-yum install -y python-pip
-pip install --upgrade pip
-pip install --upgrade pip cm_client
+
+pip install cm_client
 pip install paho-mqtt 
 
 sed -i "s/YourHostname/`hostname -f`/g" $TEMPLATE
