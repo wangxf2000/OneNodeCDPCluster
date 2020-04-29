@@ -19,8 +19,6 @@
                 "hue-HUE_SERVER-BASE", 
                 "kafka-KAFKA_BROKER-BASE", 
                 "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
-                "spark_on_yarn-GATEWAY-BASE", 
-                "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
                 "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
                 "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
                 "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
@@ -115,16 +113,8 @@
             ], 
             "serviceConfigs": [
                 {
-                    "name": "atlas_service", 
-                    "ref": "none"
-                }, 
-                {
                     "name": "hive_metastore_database_password", 
                     "variable": "hive-hive_metastore_database_password"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
                 }, 
                 {
                     "name": "hive_metastore_database_host", 
@@ -132,28 +122,6 @@
                 }
             ], 
             "serviceType": "HIVE"
-        }, 
-        {
-            "refName": "spark_on_yarn", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
-                    "roleType": "SPARK_YARN_HISTORY_SERVER"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "spark_on_yarn-GATEWAY-BASE", 
-                    "roleType": "GATEWAY"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "atlas_service", 
-                    "ref": "none"
-                }
-            ], 
-            "serviceType": "SPARK_ON_YARN"
         }, 
         {
             "refName": "schemaregistry", 
@@ -260,11 +228,7 @@
                 {
                     "name": "hbase_client_keyvalue_maxsize", 
                     "value": "52428800"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
-                }, 
+                },  
                 {
                     "name": "hbase_service_config_safety_valve", 
                     "value": "<property><name>hbase.regionserver.wal.codec</name><value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value></property><property><name>hbase.region.server.rpc.scheduler.factory.class</name><value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>hbase.rpc.controllerfactory.class</name><value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>phoenix.functions.allowUserDefinedFunctions</name><value>true</value><description>enable UDF functions</description></property>\n<property>\n   <name>hbase.regionserver.wal.codec</name>\n<value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>\n   <description>Set hbase.regionserver.wal.codec to enable custom Write Ahead Log (\"WAL\") edits to be written</description>\n</property>\n   <property>\n<name>hbase.region.server.rpc.scheduler.factory.class</name>\n<value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n   <name>hbase.rpc.controllerfactory.class</name>\n<value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n  <name>phoenix.functions.allowUserDefinedFunctions</name>\n   <value>true</value>\n   <description>enable UDF functions</description>\n</property>\n<property>\n   <name>phoenix.queryserver.serialization</name>\n   <value>JSON</value>\n   <description>serialization format between client and query server</description>\n</property>\n<property><name>hbase.server.keyvalue.maxsize</name>\n   <value>52428800</value>\n   <description>limits max file size for blobs</description>\n</property>\n<property>\n   <name>phoenix.schema.isNamespaceMappingEnabled</name><value>true</value>\n</property>"
@@ -354,10 +318,6 @@
                 {
                     "name": "offsets.topic.replication.factor", 
                     "value": "1"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
                 }
             ], 
             "serviceType": "KAFKA"
@@ -378,10 +338,6 @@
             ], 
             "serviceConfigs": [
                 {
-                    "name": "atlas_service", 
-                    "ref": "none"
-                }, 
-                {
                     "name": "database_type", 
                     "variable": "hue-database_type"
                 }, 
@@ -398,15 +354,7 @@
                     "variable": "hue-database_host"
                 }, 
                 {
-                    "name": "solr_service", 
-                    "ref": "none"
-                }, 
-                {
                     "name": "oozie_service", 
-                    "ref": "none"
-                }, 
-                {
-                    "name": "impala_service", 
                     "ref": "none"
                 }
             ], 
@@ -481,12 +429,6 @@
                     "base": true, 
                     "refName": "yarn-JOBHISTORY-BASE", 
                     "roleType": "JOBHISTORY"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
                 }
             ], 
             "serviceType": "YARN"
