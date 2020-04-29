@@ -1,0 +1,543 @@
+{
+    "cdhVersion": "7.0.3", 
+    "cmVersion": "7.0.3", 
+    "displayName": "SingleNodeCluster", 
+    "hostTemplates": [
+        {
+            "cardinality": 1.0, 
+            "refName": "HostTemplate-0-from-YourHostname", 
+            "roleConfigGroupsRefNames": [
+                "flink-FLINK_HISTORY_SERVER-BASE", 
+                "hbase-MASTER-BASE", 
+                "hbase-REGIONSERVER-BASE", 
+                "hdfs-BALANCER-BASE", 
+                "hdfs-DATANODE-BASE", 
+                "hdfs-NAMENODE-BASE", 
+                "hdfs-SECONDARYNAMENODE-BASE", 
+                "hive-GATEWAY-BASE", 
+                "hive-HIVEMETASTORE-BASE", 
+                "hue-HUE_LOAD_BALANCER-BASE", 
+                "hue-HUE_SERVER-BASE", 
+                "kafka-KAFKA_BROKER-BASE", 
+                "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                "spark_on_yarn-GATEWAY-BASE", 
+                "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+                "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
+                "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
+                "streams_replication_manager-STREAMS_REPLICATION_MANAGER_SERVICE-BASE", 
+                "yarn-JOBHISTORY-BASE", 
+                "yarn-NODEMANAGER-BASE", 
+                "yarn-RESOURCEMANAGER-BASE", 
+                "zookeeper-SERVER-BASE"
+            ]
+        }
+    ], 
+    "instantiator": {
+        "clusterName": "SingleNodeCluster", 
+        "hosts": [
+            {
+                "hostName": "YourHostname", 
+                "hostTemplateRefName": "HostTemplate-0-from-YourHostname"
+            }
+        ], 
+        "variables": [
+            {
+                "name": "hive-hive_metastore_database_host", 
+                "value": "YourHostname"
+            }, 
+            {
+                "name": "hive-hive_metastore_database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "hue-database_host", 
+                "value": "YourHostname"
+            }, 
+            {
+                "name": "hue-database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "hue-database_type", 
+                "value": "mysql"
+            }, 
+            {
+                "name": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE-streams.messaging.manager.storage.connector.password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "streams_messaging_manager-cm.metrics.password", 
+                "value": "admin"
+            }
+        ]
+    }, 
+    "products": [
+        {
+            "product": "SCHEMAREGISTRY", 
+            "version": "0.8.0.2.0.1.0-29"
+        }, 
+        {
+            "product": "CDSW", 
+            "version": "1.7.2.p1.2066404"
+        }, 
+        {
+            "product": "CDH", 
+            "version": "7.0.3-1.cdh7.0.3.p0.1635019"
+        }, 
+        {
+            "product": "STREAMS_REPLICATION_MANAGER", 
+            "version": "1.0.0.2.0.1.0-29"
+        }, 
+        {
+            "product": "CFM", 
+            "version": "1.0.1.0"
+        }, 
+        {
+            "product": "WXM", 
+            "version": "2.0.0.2.0.0-b17-1806526"
+        }, 
+        {
+            "product": "FLINK", 
+            "version": "1.9.1-csa1.1.0.0-cdh7.0.3.0-79-1753674"
+        }, 
+        {
+            "product": "STREAMS_MESSAGING_MANAGER", 
+            "version": "2.1.0.2.0.1.0-29"
+        }, 
+        {
+            "product": "Anaconda", 
+            "version": "5.1.0.1"
+        }
+    ], 
+    "repositories": [
+        "https://archive.cloudera.com/cdh7/7.0/parcels/", 
+        "https://repo.continuum.io/pkgs/misc/parcels/archive/", 
+        "http://archive.cloudera.com/csa/latest/parcels", 
+        "https://archive.cloudera.com/kafka/parcels/latest/"
+        
+    ], 
+    "services": [
+        {
+            "refName": "hive", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hive-HIVEMETASTORE-BASE", 
+                    "roleType": "HIVEMETASTORE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "atlas_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "hive_metastore_database_password", 
+                    "variable": "hive-hive_metastore_database_password"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "hive_metastore_database_host", 
+                    "variable": "hive-hive_metastore_database_host"
+                }
+            ], 
+            "serviceType": "HIVE"
+        }, 
+        {
+            "refName": "spark_on_yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "atlas_service", 
+                    "ref": "none"
+                }
+            ], 
+            "serviceType": "SPARK_ON_YARN"
+        }, 
+        {
+            "refName": "schemaregistry", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "schema.registry.storage.connector.password", 
+                            "variable": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password"
+                        }
+                    ], 
+                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                    "roleType": "SCHEMA_REGISTRY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }
+            ], 
+            "serviceType": "SCHEMAREGISTRY"
+        }, 
+        {
+            "refName": "streams_messaging_manager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "streams.messaging.manager.storage.connector.password", 
+                            "variable": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE-streams.messaging.manager.storage.connector.password"
+                        }, 
+                        {
+                            "name": "streams.messaging.manager.storage.connector.connectURI", 
+                            "value": "jdbc:mysql://YourHostname:3306/streamsmsgmgr"
+                        }
+                    ], 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_UI"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "cm.metrics.password", 
+                    "variable": "streams_messaging_manager-cm.metrics.password"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "cm.metrics.service.name", 
+                    "value": "kafka"
+                }, 
+                {
+                    "name": "cm.metrics.host", 
+                    "value": "YourHostname"
+                }
+            ], 
+            "serviceType": "STREAMS_MESSAGING_MANAGER"
+        }, 
+        {
+            "refName": "hbase", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "hbase_regionserver_java_heapsize", 
+                            "value": "524288000"
+                        }, 
+                        {
+                            "name": "hbase_regionserver_wal_codec", 
+                            "value": "org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec"
+                        }
+                    ], 
+                    "refName": "hbase-REGIONSERVER-BASE", 
+                    "roleType": "REGIONSERVER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "hbase_master_java_heapsize", 
+                            "value": "524288000"
+                        }
+                    ], 
+                    "refName": "hbase-MASTER-BASE", 
+                    "roleType": "MASTER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hbase_client_keyvalue_maxsize", 
+                    "value": "52428800"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "hbase_service_config_safety_valve", 
+                    "value": "<property><name>hbase.regionserver.wal.codec</name><value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value></property><property><name>hbase.region.server.rpc.scheduler.factory.class</name><value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>hbase.rpc.controllerfactory.class</name><value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>phoenix.functions.allowUserDefinedFunctions</name><value>true</value><description>enable UDF functions</description></property>\n<property>\n   <name>hbase.regionserver.wal.codec</name>\n<value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>\n   <description>Set hbase.regionserver.wal.codec to enable custom Write Ahead Log (\"WAL\") edits to be written</description>\n</property>\n   <property>\n<name>hbase.region.server.rpc.scheduler.factory.class</name>\n<value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n   <name>hbase.rpc.controllerfactory.class</name>\n<value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n  <name>phoenix.functions.allowUserDefinedFunctions</name>\n   <value>true</value>\n   <description>enable UDF functions</description>\n</property>\n<property>\n   <name>phoenix.queryserver.serialization</name>\n   <value>JSON</value>\n   <description>serialization format between client and query server</description>\n</property>\n<property><name>hbase.server.keyvalue.maxsize</name>\n   <value>52428800</value>\n   <description>limits max file size for blobs</description>\n</property>\n<property>\n   <name>phoenix.schema.isNamespaceMappingEnabled</name><value>true</value>\n</property>"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }
+            ], 
+            "serviceType": "HBASE"
+        }, 
+        {
+            "refName": "zookeeper", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zookeeper-SERVER-BASE", 
+                    "roleType": "SERVER"
+                }
+            ], 
+            "serviceType": "ZOOKEEPER"
+        }, 
+        {
+            "refName": "flink", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
+                    "roleType": "FLINK_HISTORY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "yarn_service", 
+                    "ref": "yarn"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }
+            ], 
+            "serviceType": "FLINK"
+        }, 
+        {
+            "refName": "streams_replication_manager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "streams.replication.manager.service.target.cluster", 
+                            "value": "secondary"
+                        }
+                    ], 
+                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_SERVICE-BASE", 
+                    "roleType": "STREAMS_REPLICATION_MANAGER_SERVICE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
+                    "roleType": "STREAMS_REPLICATION_MANAGER_DRIVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "streams.replication.manager.config", 
+                    "value": "primary.bootstrap.servers=YourHostname:9092;secondary.bootstrap.servers=YourHostname:9092;primary->secondary.enabled=true;secondary->primary.enabled=true"
+                }, 
+                {
+                    "name": "clusters", 
+                    "value": "primary, secondary"
+                }
+            ], 
+            "serviceType": "STREAMS_REPLICATION_MANAGER"
+        }, 
+        {
+            "refName": "kafka", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "broker_max_heap_size", 
+                            "value": "512"
+                        }
+                    ], 
+                    "refName": "kafka-KAFKA_BROKER-BASE", 
+                    "roleType": "KAFKA_BROKER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "producer.metrics.enable", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "service_config_suppression_kafka_broker_count_validator", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "offsets.topic.replication.factor", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }
+            ], 
+            "serviceType": "KAFKA"
+        }, 
+        {
+            "refName": "hue", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_SERVER-BASE", 
+                    "roleType": "HUE_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_LOAD_BALANCER-BASE", 
+                    "roleType": "HUE_LOAD_BALANCER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "atlas_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "database_type", 
+                    "variable": "hue-database_type"
+                }, 
+                {
+                    "name": "hive_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "database_password", 
+                    "variable": "hue-database_password"
+                }, 
+                {
+                    "name": "database_host", 
+                    "variable": "hue-database_host"
+                }, 
+                {
+                    "name": "solr_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "oozie_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "impala_service", 
+                    "ref": "none"
+                }
+            ], 
+            "serviceType": "HUE"
+        }, 
+        {
+            "refName": "hdfs", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hdfs-NAMENODE-BASE", 
+                    "roleType": "NAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-SECONDARYNAMENODE-BASE", 
+                    "roleType": "SECONDARYNAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-DATANODE-BASE", 
+                    "roleType": "DATANODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-BALANCER-BASE", 
+                    "roleType": "BALANCER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "dfs_replication", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "hdfs_under_replicated_blocks_thresholds", 
+                    "value": "{\"warning\":\"never\",\"critical\":\"never\"}"
+                }, 
+                {
+                    "name": "hdfs_verify_ec_with_topology_enabled", 
+                    "value": "false"
+                }
+            ], 
+            "serviceType": "HDFS"
+        }, 
+        {
+            "refName": "yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "yarn_scheduler_maximum_allocation_mb", 
+                            "value": "6144"
+                        }
+                    ], 
+                    "refName": "yarn-RESOURCEMANAGER-BASE", 
+                    "roleType": "RESOURCEMANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "yarn_nodemanager_resource_memory_mb", 
+                            "value": "6144"
+                        }
+                    ], 
+                    "refName": "yarn-NODEMANAGER-BASE", 
+                    "roleType": "NODEMANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "yarn-JOBHISTORY-BASE", 
+                    "roleType": "JOBHISTORY"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }
+            ], 
+            "serviceType": "YARN"
+        }
+    ]
+}
