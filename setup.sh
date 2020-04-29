@@ -192,7 +192,7 @@ sed -i "s/YourHostname/`hostname -f`/g" /opt/cloudera/cem/minifi/conf/bootstrap.
 echo "--Now install required libs and start the mosquitto broker"
 
 yum install -y mosquitto
-pip install paho-mqtt
+pip install wheel paho-mqtt
 systemctl enable mosquitto
 systemctl start mosquitto
 
@@ -225,7 +225,7 @@ echo "-- Now CM is started and the next step is to automate using the CM API"
 
 
 pip install cm_client
-pip install paho-mqtt 
+
 
 sed -i "s/YourHostname/`hostname -f`/g" $TEMPLATE
 sed -i "s/YourCDSWDomain/cdsw.$PUBLIC_IP.nip.io/g" $TEMPLATE
