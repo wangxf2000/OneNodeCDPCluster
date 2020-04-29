@@ -112,7 +112,6 @@
     "repositories": [
         "https://archive.cloudera.com/cdh7/7.0/parcels/", 
         "https://repo.continuum.io/pkgs/misc/parcels/archive/", 
-        "http://archive.cloudera.com/csa/latest/parcels", 
         "https://archive.cloudera.com/kafka/parcels/latest/"
         
     ], 
