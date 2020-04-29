@@ -81,24 +81,12 @@
             "version": "0.8.0.2.0.1.0-29"
         }, 
         {
-            "product": "CDSW", 
-            "version": "1.7.2.p1.2066404"
-        }, 
-        {
             "product": "CDH", 
             "version": "7.0.3-1.cdh7.0.3.p0.1635019"
         }, 
         {
             "product": "STREAMS_REPLICATION_MANAGER", 
             "version": "1.0.0.2.0.1.0-29"
-        }, 
-        {
-            "product": "CFM", 
-            "version": "1.0.1.0"
-        }, 
-        {
-            "product": "WXM", 
-            "version": "2.0.0.2.0.0-b17-1806526"
         }, 
         {
             "product": "STREAMS_MESSAGING_MANAGER", 
