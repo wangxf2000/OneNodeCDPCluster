@@ -4,7 +4,7 @@
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
         {
-            "cardinality": 1.0, 
+            "cardinality": 1, 
             "refName": "HostTemplate-0-from-YourHostname", 
             "roleConfigGroupsRefNames": [
                 "hbase-MASTER-BASE", 
@@ -91,10 +91,6 @@
         {
             "product": "STREAMS_MESSAGING_MANAGER", 
             "version": "2.1.0.2.0.1.0-29"
-        }, 
-        {
-            "product": "Anaconda", 
-            "version": "5.1.0.1"
         }
     ], 
     "repositories": [
