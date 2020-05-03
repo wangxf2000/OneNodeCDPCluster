@@ -4,9 +4,10 @@
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
         {
-            "cardinality": 1, 
+            "cardinality": 1.0, 
             "refName": "HostTemplate-0-from-YourHostname", 
             "roleConfigGroupsRefNames": [
+                "atlas-ATLAS_SERVER-BASE", 
                 "hbase-MASTER-BASE", 
                 "hbase-REGIONSERVER-BASE", 
                 "hdfs-BALANCER-BASE", 
@@ -15,23 +16,35 @@
                 "hdfs-SECONDARYNAMENODE-BASE", 
                 "hive-GATEWAY-BASE", 
                 "hive-HIVEMETASTORE-BASE", 
+                "hive_on_tez-HIVESERVER2-BASE", 
                 "hue-HUE_LOAD_BALANCER-BASE", 
                 "hue-HUE_SERVER-BASE", 
                 "kafka-KAFKA_BROKER-BASE", 
+                "livy-LIVY_SERVER-BASE", 
+                "oozie-OOZIE_SERVER-BASE", 
+                "phoenix-PHOENIX_QUERY_SERVER-BASE", 
+                "ranger-RANGER_ADMIN-BASE", 
+                "ranger-RANGER_TAGSYNC-BASE", 
+                "ranger-RANGER_USERSYNC-BASE", 
                 "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                "solr-SOLR_SERVER-BASE", 
+                "spark_on_yarn-GATEWAY-BASE", 
+                "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
                 "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
                 "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
                 "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
                 "streams_replication_manager-STREAMS_REPLICATION_MANAGER_SERVICE-BASE", 
+                "tez-GATEWAY-BASE", 
                 "yarn-JOBHISTORY-BASE", 
                 "yarn-NODEMANAGER-BASE", 
                 "yarn-RESOURCEMANAGER-BASE", 
+                "zeppelin-ZEPPELIN_SERVER-BASE", 
                 "zookeeper-SERVER-BASE"
             ]
         }
     ], 
     "instantiator": {
-        "clusterName": "SingleNodeCluster", 
+        "clusterName": "SingleCDPNodeCluster", 
         "hosts": [
             {
                 "hostName": "YourHostname", 
@@ -39,6 +52,10 @@
             }
         ], 
         "variables": [
+            {
+                "name": "atlas-ATLAS_SERVER-BASE-atlas_admin_password", 
+                "value": "cloudera"
+            }, 
             {
                 "name": "hive-hive_metastore_database_host", 
                 "value": "YourHostname"
@@ -58,6 +75,42 @@
             {
                 "name": "hue-database_type", 
                 "value": "mysql"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_host", 
+                "value": "YourHostname"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_type", 
+                "value": "mysql"
+            }, 
+            {
+                "name": "oozie-OOZIE_SERVER-BASE-oozie_database_user", 
+                "value": "oozie"
+            }, 
+            {
+                "name": "ranger-RANGER_ADMIN-BASE-ranger_database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "ranger-keyadmin_user_password", 
+                "value": "BadPass#1"
+            }, 
+            {
+                "name": "ranger-rangeradmin_user_password", 
+                "value": "BadPass#1"
+            }, 
+            {
+                "name": "ranger-rangertagsync_user_password", 
+                "value": "BadPass#1"
+            }, 
+            {
+                "name": "ranger-rangerusersync_user_password", 
+                "value": "BadPass#1"
             }, 
             {
                 "name": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password", 
@@ -83,6 +136,10 @@
             "version": "7.0.3-1.cdh7.0.3.p0.1635019"
         }, 
         {
+            "product": "PHOENIX", 
+            "version": "5.0.0-cdh6.2.0.p0.1308267"
+        }, 
+        {
             "product": "STREAMS_REPLICATION_MANAGER", 
             "version": "1.0.0.2.0.1.0-29"
         }, 
@@ -92,9 +149,7 @@
         }
     ], 
     "repositories": [
-        "https://archive.cloudera.com/cdh7/7.0/parcels/", 
-        "https://repo.continuum.io/pkgs/misc/parcels/archive/"
-        
+        "https://archive.cloudera.com/cdh7/7.0/parcels/"
     ], 
     "services": [
         {
@@ -124,127 +179,6 @@
             "serviceType": "HIVE"
         }, 
         {
-            "refName": "schemaregistry", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "schema.registry.storage.connector.password", 
-                            "variable": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password"
-                        }
-                    ], 
-                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
-                    "roleType": "SCHEMA_REGISTRY_SERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }
-            ], 
-            "serviceType": "SCHEMAREGISTRY"
-        }, 
-        {
-            "refName": "streams_messaging_manager", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "streams.messaging.manager.storage.connector.password", 
-                            "variable": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE-streams.messaging.manager.storage.connector.password"
-                        }, 
-                        {
-                            "name": "streams.messaging.manager.storage.connector.connectURI", 
-                            "value": "jdbc:mysql://YourHostname:3306/streamsmsgmgr"
-                        }
-                    ], 
-                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
-                    "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
-                    "roleType": "STREAMS_MESSAGING_MANAGER_UI"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "cm.metrics.password", 
-                    "variable": "streams_messaging_manager-cm.metrics.password"
-                }, 
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "kafka_service", 
-                    "ref": "kafka"
-                }, 
-                {
-                    "name": "cm.metrics.service.name", 
-                    "value": "kafka"
-                }, 
-                {
-                    "name": "cm.metrics.host", 
-                    "value": "YourHostname"
-                }
-            ], 
-            "serviceType": "STREAMS_MESSAGING_MANAGER"
-        }, 
-        {
-            "refName": "hbase", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "hbase_regionserver_java_heapsize", 
-                            "value": "524288000"
-                        }, 
-                        {
-                            "name": "hbase_regionserver_wal_codec", 
-                            "value": "org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec"
-                        }
-                    ], 
-                    "refName": "hbase-REGIONSERVER-BASE", 
-                    "roleType": "REGIONSERVER"
-                }, 
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "hbase_master_java_heapsize", 
-                            "value": "524288000"
-                        }
-                    ], 
-                    "refName": "hbase-MASTER-BASE", 
-                    "roleType": "MASTER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "hbase_client_keyvalue_maxsize", 
-                    "value": "52428800"
-                },  
-                {
-                    "name": "hbase_service_config_safety_valve", 
-                    "value": "<property><name>hbase.regionserver.wal.codec</name><value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value></property><property><name>hbase.region.server.rpc.scheduler.factory.class</name><value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>hbase.rpc.controllerfactory.class</name><value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value><description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description></property><property><name>phoenix.functions.allowUserDefinedFunctions</name><value>true</value><description>enable UDF functions</description></property>\n<property>\n   <name>hbase.regionserver.wal.codec</name>\n<value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>\n   <description>Set hbase.regionserver.wal.codec to enable custom Write Ahead Log (\"WAL\") edits to be written</description>\n</property>\n   <property>\n<name>hbase.region.server.rpc.scheduler.factory.class</name>\n<value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n   <name>hbase.rpc.controllerfactory.class</name>\n<value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value>\n   <description>Factory to create the Phoenix RPC Scheduler that uses separate queues for index and metadata updates</description>\n</property>\n<property>\n  <name>phoenix.functions.allowUserDefinedFunctions</name>\n   <value>true</value>\n   <description>enable UDF functions</description>\n</property>\n<property>\n   <name>phoenix.queryserver.serialization</name>\n   <value>JSON</value>\n   <description>serialization format between client and query server</description>\n</property>\n<property><name>hbase.server.keyvalue.maxsize</name>\n   <value>52428800</value>\n   <description>limits max file size for blobs</description>\n</property>\n<property>\n   <name>phoenix.schema.isNamespaceMappingEnabled</name><value>true</value>\n</property>"
-                }, 
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }
-            ], 
-            "serviceType": "HBASE"
-        }, 
-        {
             "refName": "zookeeper", 
             "roleConfigGroups": [
                 {
@@ -256,40 +190,178 @@
             "serviceType": "ZOOKEEPER"
         }, 
         {
-            "refName": "streams_replication_manager", 
+            "refName": "atlas", 
             "roleConfigGroups": [
                 {
                     "base": true, 
                     "configs": [
                         {
-                            "name": "streams.replication.manager.service.target.cluster", 
-                            "value": "secondary"
+                            "name": "atlas_authentication_method_file", 
+                            "value": "true"
+                        }, 
+                        {
+                            "name": "atlas_admin_password", 
+                            "variable": "atlas-ATLAS_SERVER-BASE-atlas_admin_password"
                         }
                     ], 
-                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_SERVICE-BASE", 
-                    "roleType": "STREAMS_REPLICATION_MANAGER_SERVICE"
+                    "refName": "atlas-ATLAS_SERVER-BASE", 
+                    "roleType": "ATLAS_SERVER"
+                }
+            ], 
+            "serviceType": "ATLAS"
+        }, 
+        {
+            "refName": "hive_on_tez", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive_on_tez-HIVESERVER2-BASE", 
+                    "roleType": "HIVESERVER2"
+                }
+            ], 
+            "serviceType": "HIVE_ON_TEZ"
+        }, 
+        {
+            "refName": "oozie", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "oozie_database_user", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
+                        }, 
+                        {
+                            "name": "oozie_database_host", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
+                        }, 
+                        {
+                            "name": "oozie_database_type", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
+                        }, 
+                        {
+                            "name": "oozie_database_password", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
+                        }
+                    ], 
+                    "refName": "oozie-OOZIE_SERVER-BASE", 
+                    "roleType": "OOZIE_SERVER"
+                }
+            ], 
+            "serviceType": "OOZIE"
+        }, 
+        {
+            "refName": "ranger", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "ranger-RANGER_USERSYNC-BASE", 
+                    "roleType": "RANGER_USERSYNC"
                 }, 
                 {
                     "base": true, 
-                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
-                    "roleType": "STREAMS_REPLICATION_MANAGER_DRIVER"
+                    "refName": "ranger-RANGER_TAGSYNC-BASE", 
+                    "roleType": "RANGER_TAGSYNC"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "ranger_database_host", 
+                            "value": "127.0.0.1"
+                        }, 
+                        {
+                            "name": "ranger_database_user", 
+                            "value": "ranger"
+                        }, 
+                        {
+                            "name": "ranger_database_password", 
+                            "variable": "ranger-RANGER_ADMIN-BASE-ranger_database_password"
+                        }
+                    ], 
+                    "refName": "ranger-RANGER_ADMIN-BASE", 
+                    "roleType": "RANGER_ADMIN"
                 }
             ], 
             "serviceConfigs": [
                 {
-                    "name": "kafka_service", 
-                    "ref": "kafka"
+                    "name": "rangeradmin_user_password", 
+                    "variable": "ranger-rangeradmin_user_password"
                 }, 
                 {
-                    "name": "streams.replication.manager.config", 
-                    "value": "primary.bootstrap.servers=YourHostname:9092;secondary.bootstrap.servers=YourHostname:9092;primary->secondary.enabled=true;secondary->primary.enabled=true"
+                    "name": "rangertagsync_user_password", 
+                    "variable": "ranger-rangertagsync_user_password"
                 }, 
                 {
-                    "name": "clusters", 
-                    "value": "primary, secondary"
+                    "name": "rangerusersync_user_password", 
+                    "variable": "ranger-rangerusersync_user_password"
+                }, 
+                {
+                    "name": "keyadmin_user_password", 
+                    "variable": "ranger-keyadmin_user_password"
                 }
             ], 
-            "serviceType": "STREAMS_REPLICATION_MANAGER"
+            "serviceType": "RANGER"
+        }, 
+        {
+            "refName": "tez", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "tez-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "TEZ"
+        }, 
+        {
+            "refName": "zeppelin", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zeppelin-ZEPPELIN_SERVER-BASE", 
+                    "roleType": "ZEPPELIN_SERVER"
+                }
+            ], 
+            "serviceType": "ZEPPELIN"
+        }, 
+        {
+            "refName": "livy", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "livy-LIVY_SERVER-BASE", 
+                    "roleType": "LIVY_SERVER"
+                }
+            ], 
+            "serviceType": "LIVY"
+        }, 
+        {
+            "refName": "spark_on_yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "SPARK_ON_YARN"
+        }, 
+        {
+            "refName": "solr", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "solr-SOLR_SERVER-BASE", 
+                    "roleType": "SOLR_SERVER"
+                }
+            ], 
+            "serviceType": "SOLR"
         }, 
         {
             "refName": "kafka", 
@@ -304,20 +376,6 @@
                     ], 
                     "refName": "kafka-KAFKA_BROKER-BASE", 
                     "roleType": "KAFKA_BROKER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "producer.metrics.enable", 
-                    "value": "true"
-                }, 
-                {
-                    "name": "service_config_suppression_kafka_broker_count_validator", 
-                    "value": "true"
-                }, 
-                {
-                    "name": "offsets.topic.replication.factor", 
-                    "value": "1"
                 }
             ], 
             "serviceType": "KAFKA"
@@ -342,20 +400,12 @@
                     "variable": "hue-database_type"
                 }, 
                 {
-                    "name": "hive_service", 
-                    "ref": "none"
-                }, 
-                {
                     "name": "database_password", 
                     "variable": "hue-database_password"
                 }, 
                 {
                     "name": "database_host", 
                     "variable": "hue-database_host"
-                }, 
-                {
-                    "name": "oozie_service", 
-                    "ref": "none"
                 }
             ], 
             "serviceType": "HUE"
@@ -432,6 +482,158 @@
                 }
             ], 
             "serviceType": "YARN"
+        }, 
+        {
+            "refName": "hbase", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hbase-REGIONSERVER-BASE", 
+                    "roleType": "REGIONSERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hbase-MASTER-BASE", 
+                    "roleType": "MASTER"
+                }
+            ], 
+            "serviceType": "HBASE"
+        }, 
+        {
+            "refName": "phoenix", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "phoenix-PHOENIX_QUERY_SERVER-BASE", 
+                    "roleType": "PHOENIX_QUERY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hbase_service", 
+                    "ref": "hbase"
+                }
+            ], 
+            "serviceType": "PHOENIX"
+        }, 
+        {
+            "refName": "schemaregistry", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "schema.registry.storage.connector.password", 
+                            "variable": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE-schema.registry.storage.connector.password"
+                        }
+                    ], 
+                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                    "roleType": "SCHEMA_REGISTRY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }
+            ], 
+            "serviceType": "SCHEMAREGISTRY"
+        }, 
+        {
+            "refName": "streams_messaging_manager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "streams.messaging.manager.storage.connector.password", 
+                            "variable": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE-streams.messaging.manager.storage.connector.password"
+                        }, 
+                        {
+                            "name": "streams.messaging.manager.storage.connector.connectURI", 
+                            "value": "jdbc:mysql://YourHostname:3306/streamsmsgmgr"
+                        }, 
+                        {
+                            "name": "SMM_HEAP_SIZE", 
+                            "value": "2048"
+                        }
+                    ], 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_UI"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "cm.metrics.password", 
+                    "variable": "streams_messaging_manager-cm.metrics.password"
+                }, 
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "cm.metrics.service.name", 
+                    "value": "kafka"
+                }, 
+                {
+                    "name": "cm.metrics.host", 
+                    "value": "YourHostname"
+                }
+            ], 
+            "serviceType": "STREAMS_MESSAGING_MANAGER"
+        }, 
+        {
+            "refName": "streams_replication_manager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "streams.replication.manager.service.target.cluster", 
+                            "value": "secondary"
+                        }
+                    ], 
+                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_SERVICE-BASE", 
+                    "roleType": "STREAMS_REPLICATION_MANAGER_SERVICE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "streams_replication_manager-STREAMS_REPLICATION_MANAGER_DRIVER-BASE", 
+                    "roleType": "STREAMS_REPLICATION_MANAGER_DRIVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "clusters", 
+                    "value": "primary, secondary"
+                }, 
+                {
+                    "name": "streams.replication.manager.config", 
+                    "value": "primary.bootstrap.servers=YourHostname:9092;secondary.bootstrap.servers=YourHostname:9092;primary->secondary.enabled=true;secondary->primary.enabled=true"
+                }
+            ], 
+            "serviceType": "STREAMS_REPLICATION_MANAGER"
         }
     ]
 }
