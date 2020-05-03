@@ -54,7 +54,7 @@
         "variables": [
             {
                 "name": "atlas-ATLAS_SERVER-BASE-atlas_admin_password", 
-                "value": "cloudera"
+                "value": "BadPass#1"
             }, 
             {
                 "name": "hive-hive_metastore_database_host", 
