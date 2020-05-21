@@ -87,7 +87,7 @@ mkdir -p /var/www/html/spark2/csd/
 mkdir -p /var/www/html/CEM/centos7/1.x/updates/1.0.0.0/
 mkdir -p /var/www/html/get/Downloads/Connector-J/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
-mkdir -p /var/www/html/CFM/parcels/1.0.0.0/
+mkdir -p /var/www/html/CFM/parcels/1.0.1.0/
 mkdir -p /var/www/html/cdsw1/1.7.2/parcels/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
