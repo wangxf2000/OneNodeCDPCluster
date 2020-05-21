@@ -81,7 +81,7 @@ sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .
 #create the local repository directory
 mkdir -p /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/
 mkdir -p /var/www/html/cdh7/7.0.3.0/parcels/
-mkdir -p /var/www/html/CFM/csd/1.0.0.0/
+mkdir -p /var/www/html/CFM/csd/1.0.1.0/
 mkdir -p /var/www/html/cdsw1/1.7.2/csd/
 mkdir -p /var/www/html/spark2/csd/
 mkdir -p /var/www/html/CEM/centos7/1.x/updates/1.0.0.0/
@@ -107,12 +107,12 @@ wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/manifest.json -P /var/www
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel.sha -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/manifest.json -P /var/www/html/cdsw1/1.7.2/parcels/
-wget http://archive.cloudera.com/CFM/parcels/1.0.0.0/CFM-1.0.0.0-el7.parcel -P /var/www/html/CFM/parcels/1.0.0.0/
-wget http://archive.cloudera.com/CFM/parcels/1.0.0.0/CFM-1.0.0.0-el7.parcel.sha1 -P /var/www/html/CFM/parcels/1.0.0.0/
-wget http://archive.cloudera.com/CFM/parcels/1.0.0.0/manifest.json  -P /var/www/html/CFM/parcels/1.0.0.0/
-wget https://archive.cloudera.com/CFM/csd/1.0.0.0/NIFI-1.9.0.1.0.0.0-90.jar -P /var/www/html/CFM/csd/1.0.0.0/
-wget https://archive.cloudera.com/CFM/csd/1.0.0.0/NIFICA-1.9.0.1.0.0.0-90.jar -P /var/www/html/CFM/csd/1.0.0.0/
-wget https://archive.cloudera.com/CFM/csd/1.0.0.0/NIFIREGISTRY-0.3.0.1.0.0.0-90.jar -P /var/www/html/CFM/csd/1.0.0.0/
+wget http://archive.cloudera.com/CFM/parcels/1.0.1.0/CFM-1.0.1.0-el7.parcel -P /var/www/html/CFM/parcels/1.0.1.0/
+wget http://archive.cloudera.com/CFM/parcels/1.0.1.0/CFM-1.0.1.0-el7.parcel.sha -P /var/www/html/CFM/parcels/1.0.1.0/
+wget http://archive.cloudera.com/CFM/parcels/1.0.1.0/manifest.json  -P /var/www/html/CFM/parcels/1.0.1.0/
+wget http://archive.cloudera.com/CFM/csd/1.0.1.0/NIFI-1.9.0.1.0.1.0-12.jar -P /var/www/html/CFM/csd/1.0.1.0/
+wget http://archive.cloudera.com/CFM/csd/1.0.1.0/NIFICA-1.9.0.1.0.1.0-12.jar -P /var/www/html/CFM/csd/1.0.1.0/
+wget http://archive.cloudera.com/CFM/csd/1.0.1.0/NIFIREGISTRY-0.3.0.1.0.1.0-12.jar -P /var/www/html/CFM/csd/1.0.1.0/
 wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.7.2.jar	 -P /var/www/html/cdsw1/1.7.2/csd/
 wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.7.2.jar -P /var/www/html/cdsw1/1.7.2/csd/
 wget https://archive.cloudera.com/spark2/csd/SPARK2_ON_YARN-2.4.0.cloudera1.jar -P /var/www/html/spark2/csd/  
