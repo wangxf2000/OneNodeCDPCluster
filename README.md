@@ -99,7 +99,7 @@ mkdir -p /var/www/html/pkgs/misc/parcels/archive/
 ```
 wget -nd -r  -l1 --no-parent https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/RPMS/x86_64/ -P /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/
 wget https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.0.3/redhat7/yum
-wget https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/cloudera-manager.repo -P /var/www/html/cm7/7.0.3/redhat7/yum
+wget https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/cloudera-manager-trial.repo -P /var/www/html/cm7/7.0.3/redhat7/yum
 wget https://archive.cloudera.com/cm7/7.0.3/allkeys.asc -P /var/www/html/cm7/7.0.3
 wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/CDH-7.0.3-1.cdh7.0.3.p0.1635019-el7.parcel -P /var/www/html/cdh7/7.0.3.0/parcels/
 wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/CDH-7.0.3-1.cdh7.0.3.p0.1635019-el7.parcel.sha256 -P /var/www/html/cdh7/7.0.3.0/parcels/
@@ -126,7 +126,8 @@ rm -rf /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/index.html
 rm -rf /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/robots.txt
 
 #create the cm7's repo information
-createrepo /var/www/html/cm7/7.0.3/redhat7/yum/
+cd /var/www/html/cm7/7.0.3/redhat7/yum/
+createrepo .
 
 ### replace cloudera repository to your own repository 
 ### modify the repository in setup.sh, scripts/create_cluster.py ,templates/*json files
@@ -134,7 +135,7 @@ sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHClust
 sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm6/6.3.1/redhat7/yum/cloudera-manager.repo
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.0.3/redhat7/yum/cloudera-manager-trial.repo
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/scripts/create_cluster.py
 sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
