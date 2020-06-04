@@ -79,8 +79,8 @@ yum -y install httpd git createrepo unzip
 sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .tgz .parcel/' /etc/httpd/conf/httpd.conf
 
 #create the local repository directory
-mkdir -p /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/
-mkdir -p /var/www/html/cdh7/7.0.3.0/parcels/
+mkdir -p /var/www/html/cm7/7.1.1/redhat7/yum/RPMS/x86_64/
+mkdir -p /var/www/html/cdh7/7.1.1.0/parcels/
 mkdir -p /var/www/html/CFM/csd/1.0.1.0/
 mkdir -p /var/www/html/cdsw1/1.7.2/csd/
 mkdir -p /var/www/html/spark2/csd/
@@ -98,12 +98,12 @@ mkdir -p /var/www/html/pkgs/misc/parcels/archive/
 ### download the public repository to your local directory
 ```
 wget -nd -r  -l1 --no-parent https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/RPMS/x86_64/ -P /var/www/html/cm7/7.0.3/redhat7/yum/RPMS/x86_64/
-wget https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.0.3/redhat7/yum
-wget https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/cloudera-manager-trial.repo -P /var/www/html/cm7/7.0.3/redhat7/yum
-wget https://archive.cloudera.com/cm7/7.0.3/allkeys.asc -P /var/www/html/cm7/7.0.3
-wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/CDH-7.0.3-1.cdh7.0.3.p0.1635019-el7.parcel -P /var/www/html/cdh7/7.0.3.0/parcels/
-wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/CDH-7.0.3-1.cdh7.0.3.p0.1635019-el7.parcel.sha256 -P /var/www/html/cdh7/7.0.3.0/parcels/
-wget https://archive.cloudera.com/cdh7/7.0.3.0/parcels/manifest.json -P /var/www/html/cdh7/7.0.3.0/parcels/
+wget https://archive.cloudera.com/cm7/7.1.1/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.1.1/redhat7/yum
+wget https://archive.cloudera.com/cm7/7.1.1/redhat7/yum/cloudera-manager-trial.repo -P /var/www/html/cm7/7.1.1/redhat7/yum
+wget https://archive.cloudera.com/cm7/7.1.1/allkeys.asc -P /var/www/html/cm7/7.1.1
+wget https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel -P /var/www/html/cdh7/7.1.1.0/parcels/
+wget https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256 -P /var/www/html/cdh7/7.1.1.0/parcels/
+wget https://archive.cloudera.com/cdh7/7.1.1.0/parcels/manifest.json -P /var/www/html/cdh7/7.1.1.0/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel.sha -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/manifest.json -P /var/www/html/cdsw1/1.7.2/parcels/
@@ -135,7 +135,7 @@ sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHClust
 sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.0.3/redhat7/yum/cloudera-manager-trial.repo
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.1.1/redhat7/yum/cloudera-manager-trial.repo
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/scripts/create_cluster.py
 sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
