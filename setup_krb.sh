@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash
 echo "-- Configure and optimize the OS"
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
@@ -13,6 +13,7 @@ echo "-- Install Java OpenJDK8 and other tools"
 yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools
 yum install -y epel-release
 yum install -y python-pip
+pip install --upgrade pip
 
 cp /usr/lib/systemd/system/rngd.service /etc/systemd/system/
 systemctl daemon-reload
@@ -149,10 +150,10 @@ EOF
 
 
 echo "-- Install CSDs"
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFI-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFICA-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFIREGISTRY-0.3.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.7.2.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.2.0.0/csd/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar -P /opt/cloudera/csd/
 
 
 # install local CSDs
@@ -168,18 +169,19 @@ chown cloudera-scm:cloudera-scm /opt/cloudera/parcel-repo/*
 
 echo "-- Install CEM Tarballs"
 mkdir -p /opt/cloudera/cem
-wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.0.0.0/CEM-1.0.0.0-centos7-tars-tarball.tar.gz -P /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM-1.0.0.0-centos7-tars-tarball.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.0.0.0-54/tars/efm/efm-1.0.0.1.0.0.0-54-bin.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.0.0.0-54/tars/minifi/minifi-0.6.0.1.0.0.0-54-bin.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.0.0.0-54/tars/minifi/minifi-toolkit-0.6.0.1.0.0.0-54-bin.tar.gz -C /opt/cloudera/cem
-rm -f /opt/cloudera/cem/CEM-1.0.0.0-centos7-tars-tarball.tar.gz
-ln -s /opt/cloudera/cem/efm-1.0.0.1.0.0.0-54 /opt/cloudera/cem/efm
-ln -s /opt/cloudera/cem/minifi-0.6.0.1.0.0.0-54 /opt/cloudera/cem/minifi
+wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.2.0.0/CEM-1.2.0.0-centos7-tars-tarball.tar.gz -P /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/CEM-1.2.0.0-centos7-tars-tarball.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/efm/efm-1.0.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/minifi/minifi-0.6.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/minifi/minifi-toolkit-0.6.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
+rm -f /opt/cloudera/cem/CEM-1.2.0.0-centos7-tars-tarball.tar.gz
+ln -s /opt/cloudera/cem/efm-1.0.0.1.2.0.0-70 /opt/cloudera/cem/efm
+ln -s /opt/cloudera/cem/minifi-0.6.0.1.2.0.0-70 /opt/cloudera/cem/minifi
 ln -s /opt/cloudera/cem/efm/bin/efm.sh /etc/init.d/efm
-chown -R root:root /opt/cloudera/cem/efm-1.0.0.1.0.0.0-54
-chown -R root:root /opt/cloudera/cem/minifi-0.6.0.1.0.0.0-54
-chown -R root:root /opt/cloudera/cem/minifi-toolkit-0.6.0.1.0.0.0-54
+chown -R root:root /opt/cloudera/cem/efm-1.0.0.1.2.0.0-70
+chown -R root:root /opt/cloudera/cem/minifi-0.6.0.1.2.0.0-70
+chown -R root:root /opt/cloudera/cem/minifi-toolkit-0.6.0.1.2.0.0-70
+
 rm -f /opt/cloudera/cem/efm/conf/efm.properties
 cp conf/efm.properties /opt/cloudera/cem/efm/conf
 rm -f /opt/cloudera/cem/minifi/conf/bootstrap.conf
@@ -188,6 +190,19 @@ sed -i "s/YourHostname/`hostname -f`/g" /opt/cloudera/cem/efm/conf/efm.propertie
 sed -i "s/YourHostname/`hostname -f`/g" /opt/cloudera/cem/minifi/conf/bootstrap.conf
 /opt/cloudera/cem/minifi/bin/minifi.sh install
 
+echo "--Now install required libs and start the mosquitto broker"
+
+yum install -y mosquitto
+pip install wheel paho-mqtt
+systemctl enable mosquitto
+systemctl start mosquitto
+
+echo "--Download the NiFi MQTT Processor to read from mosquitto"
+mkdir -p /opt/cloudera/cem/minifi/lib/
+wget https://repo1.maven.org/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/nifi-mqtt-nar-1.8.0.nar -P /opt/cloudera/cem/minifi/lib
+chown root:root /opt/cloudera/cem/minifi/lib/nifi-mqtt-nar-1.8.0.nar
+chmod 660 /opt/cloudera/cem/minifi/lib/nifi-mqtt-nar-1.8.0.nar
+
 
 echo "-- Enable passwordless root login via rsa key"
 ssh-keygen -f ~/myRSAkey -t rsa -N ""
@@ -195,7 +210,7 @@ mkdir ~/.ssh
 cat ~/myRSAkey.pub >> ~/.ssh/authorized_keys
 chmod 400 ~/.ssh/authorized_keys
 ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
-sed -i 's/.*PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
+#sed -i 's/.*PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 echo "-- Start CM, it takes about 2 minutes to be ready"
@@ -209,7 +224,9 @@ done
 
 echo "-- Now CM is started and the next step is to automate using the CM API"
 
-pip install --upgrade pip cm_client
+
+pip install cm_client
+
 
 sed -i "s/YourHostname/`hostname -f`/g" $TEMPLATE
 sed -i "s/YourCDSWDomain/cdsw.$PUBLIC_IP.nip.io/g" $TEMPLATE
@@ -220,6 +237,11 @@ sed -i "s/YourHostname/`hostname -f`/g" scripts/create_cluster_krb.py
 
 python scripts/create_cluster_krb.py $TEMPLATE
 
+echo "-- At this point you can login into Cloudera Manager host on port 7180 and follow the deployment of the cluster"
+
+echo "--Now start efm and minifi"
 # configure and start EFM and Minifi
-service efm start
-#service minifi start
+systemctl enable efm
+systemctl start efm
+systemctl enable minifi
+systemctl start minifi
