@@ -152,16 +152,8 @@ echo "-- Install CSDs"
 wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFI-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFICA-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFIREGISTRY-0.3.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-# CDSW CSD: must update descriptors so it can install on CR7
-wget https://archive.cloudera.com/cdsw1/1.6.1/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.6.1.jar -P cdswjar
-cd cdswjar/
-jar xvf CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.6.1.jar 
-rm -rf CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.6.1.jar 
-sed -i 's/"max" : "6"/"max" : "7"/' descriptor/service.sdl 
-sed -i 's/<cdh.max.version>6/<cdh.max.version>7/' META-INF/maven/com.cloudera.csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6/pom.xml
-jar cvf CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.6.1.jar *
-mv CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.6.1.jar ~
-cd ..
+wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.7.2.jar -P /opt/cloudera/csd/
+
 
 # install local CSDs
 mv ~/*.jar /opt/cloudera/csd/
