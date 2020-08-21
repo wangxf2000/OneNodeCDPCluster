@@ -111,9 +111,9 @@ rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
 ```
 ### replace username and password with your license's username and password, if you need CFM and CDSW 
 ```
-wget https://username:password@archive.cloudera.com/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel -P /var/www/html/cdsw1/1.8.0/parcels/
-wget https://username:password@archive.cloudera.com/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel.sha -P /var/www/html/cdsw1/1.8.0/parcels/
-wget https://username:password@archive.cloudera.com/cdsw1/1.8.20/parcels/manifest.json -P /var/www/html/cdsw1/1.8.0/parcels/
+wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel -P /var/www/html/cdsw1/1.8.0/parcels/
+wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel.sha -P /var/www/html/cdsw1/1.8.0/parcels/
+wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/manifest.json -P /var/www/html/cdsw1/1.8.0/parcels/
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar	 -P /var/www/html/cdsw1/1.8.0/csd/
 
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/CFM-2.0.1.0-71-el7.parcel -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
