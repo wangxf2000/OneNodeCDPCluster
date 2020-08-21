@@ -108,7 +108,7 @@ wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/w
 rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/index.html
 rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
 ```
-### replace username and password with your license's username and password, if you need CFM and CDSW 
+### replace username and password with your license's username and password, if you need CEM,CFM and CDSW 
 ```
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel -P /var/www/html/cdsw1/1.8.0/parcels/
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel.sha -P /var/www/html/cdsw1/1.8.0/parcels/
