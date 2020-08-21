@@ -89,7 +89,8 @@ mkdir -p /var/www/html/get/Downloads/Connector-J/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
 mkdir -p /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
-
+mkdir -p /var/www/html/csa/1.2.0.0/parcels/
+mkdir -p /var/www/html/csa/1.2.0.0/csd/
 ```
 
 ### download the public repository to your local directory
@@ -109,19 +110,28 @@ wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/w
 rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/index.html
 rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
 ```
-### replace username and password with your license's username and password, if you need CEM,CFM and CDSW 
+### replace username and password with your license's username and password, if you need CEM,CFM, CSA and CDSW 
 ```
+#cdsw
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel -P /var/www/html/cdsw1/1.8.0/parcels/
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/CDSW-1.8.0.p1.4968660-el7.parcel.sha -P /var/www/html/cdsw1/1.8.0/parcels/
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/parcels/manifest.json -P /var/www/html/cdsw1/1.8.0/parcels/
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar	 -P /var/www/html/cdsw1/1.8.0/csd/
 
+#CFM
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/CFM-2.0.1.0-71-el7.parcel -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/CFM-2.0.1.0-71-el7.parcel.sha -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/manifest.json  -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 
+#CSA
+wget https://username:password@archive.cloudera.com/p/csa/1.2.0.0/parcels/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501-el7.parcel -P /var/www/html/csa/1.2.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.2.0.0/parcels/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501-el7.parcel.sha -P /var/www/html/csa/1.2.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.2.0.0/parcels/manifest.json -P /var/www/html/csa/1.2.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.2.0.0/csd/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501.jar -P /var/www/html/csa/1.2.0.0/csd/
+
+#CEM
 wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.2.0.0/CEM-1.2.0.0-centos7-tars-tarball.tar.gz  -P /var/www/html/CEM/centos7/1.x/updates/1.2.0.0/
 ```
 ### create the cm7's repo information and replace the link to your local repository
