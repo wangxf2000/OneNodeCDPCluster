@@ -82,13 +82,12 @@ sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .
 mkdir -p /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/
 mkdir -p /var/www/html/cdh7/7.1.3.0/parcels/
 mkdir -p /var/www/html/CFM/csd/1.0.1.0/
-mkdir -p /var/www/html/cdsw1/1.7.2/csd/
-mkdir -p /var/www/html/spark2/csd/
+mkdir -p /var/www/html/cdsw1/1.8.0/csd/
+mkdir -p /var/www/html/cdsw1/1.8.0/parcels/
 mkdir -p /var/www/html/CEM/centos7/1.x/updates/1.0.0.0/
 mkdir -p /var/www/html/get/Downloads/Connector-J/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
 mkdir -p /var/www/html/CFM/parcels/1.0.1.0/
-mkdir -p /var/www/html/cdsw1/1.7.2/parcels/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
@@ -104,6 +103,14 @@ wget https://archive.cloudera.com/cm7/7.1.3/allkeys.asc -P /var/www/html/cm7/7.1
 wget https://archive.cloudera.com/cdh7/7.1.3.0/parcels/CDH-7.1.3-1.cdh7.1.3.p0.4992530-el7.parcel -P /var/www/html/cdh7/7.1.3.0/parcels/
 wget https://archive.cloudera.com/cdh7/7.1.3.0/parcels/CDH-7.1.3-1.cdh7.1.3.p0.4992530-el7.parcel.sha256 -P /var/www/html/cdh7/7.1.3.0/parcels/
 wget https://archive.cloudera.com/cdh7/7.1.3.0/parcels/manifest.json -P /var/www/html/cdh7/7.1.3.0/parcels/
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz -P /var/www/html/get/Downloads/Connector-J/
+wget http://central.maven.org/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/nifi-mqtt-nar-1.8.0.nar -P /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
+wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel  -P /var/www/html/pkgs/misc/parcels/archive/
+wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel.sha -P /var/www/html/pkgs/misc/parcels/archive/
+wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/www/html/pkgs/misc/parcels/archive/
+rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/index.html
+rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
+
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/CDSW-1.7.2.p1.2066404-el7.parcel.sha -P /var/www/html/cdsw1/1.7.2/parcels/
 wget https://archive.cloudera.com/cdsw1/1.7.2/parcels/manifest.json -P /var/www/html/cdsw1/1.7.2/parcels/
@@ -115,13 +122,6 @@ wget http://archive.cloudera.com/CFM/csd/1.0.1.0/NIFICA-1.9.0.1.0.1.0-12.jar -P 
 wget http://archive.cloudera.com/CFM/csd/1.0.1.0/NIFIREGISTRY-0.3.0.1.0.1.0-12.jar -P /var/www/html/CFM/csd/1.0.1.0/
 wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.7.2.jar	 -P /var/www/html/cdsw1/1.7.2/csd/
 wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.0.0.0/CEM-1.0.0.0-centos7-tars-tarball.tar.gz -P /var/www/html/CEM/centos7/1.x/updates/1.0.0.0/
-wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz -P /var/www/html/get/Downloads/Connector-J/
-wget http://central.maven.org/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/nifi-mqtt-nar-1.8.0.nar -P /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
-wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel  -P /var/www/html/pkgs/misc/parcels/archive/
-wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel.sha -P /var/www/html/pkgs/misc/parcels/archive/
-wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/www/html/pkgs/misc/parcels/archive/
-rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/index.html
-rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
 
 #create the cm7's repo information
 cd /var/www/html/cm7/7.1.3/redhat7/yum/
