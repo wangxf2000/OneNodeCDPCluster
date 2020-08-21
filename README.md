@@ -120,11 +120,11 @@ wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/CFM-2.0.1.0-71-el7.parcel.sha -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/manifest.json  -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
-wget 	https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
+wget https://username:password@archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /var/www/html/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/
 
 wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.0.0.0/CEM-1.0.0.0-centos7-tars-tarball.tar.gz -P /var/www/html/CEM/centos7/1.x/updates/1.0.0.0/
 ```
-# create the cm7's repo information
+### create the cm7's repo information and replace the link to your local repository
 ```
 cd /var/www/html/cm7/7.1.3/redhat7/yum/
 createrepo .
