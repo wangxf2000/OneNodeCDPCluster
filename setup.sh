@@ -150,10 +150,10 @@ EOF
 
 
 echo "-- Install CSDs"
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFI-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFICA-1.9.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/CFM/csd/1.0.1.0/NIFIREGISTRY-0.3.0.1.0.1.0-12.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/cdsw1/1.7.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.7.2.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.2.0.0/csd/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar -P /opt/cloudera/csd/
 
 
 # install local CSDs
