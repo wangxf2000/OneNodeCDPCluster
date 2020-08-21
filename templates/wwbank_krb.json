@@ -1,6 +1,6 @@
 {
-    "cdhVersion": "7.0.3",
-    "cmVersion": "7.0.3",
+    "cdhVersion": "7.1.3.0",
+    "cmVersion": "7.1.3",
     "displayName": "WWBank",
     "hostTemplates": [
         {
@@ -22,19 +22,21 @@
                 "hue-HUE_LOAD_BALANCER-BASE",
                 "hue-HUE_SERVER-BASE",
                 "hue-KT_RENEWER-BASE",
-				"impala-CATALOGSERVER-BASE",
-				"impala-IMPALAD-BASE",
-				"impala-STATESTORE-BASE",                
+		"impala-CATALOGSERVER-BASE",
+		"impala-IMPALAD-BASE",
+		"impala-STATESTORE-BASE",                
                 "kafka-KAFKA_BROKER-BASE",
-				"kudu-KUDU_MASTER-BASE",
-				"kudu-KUDU_TSERVER-BASE",                
+		"kudu-KUDU_MASTER-BASE",
+		"kudu-KUDU_TSERVER-BASE",                
                 "livy-LIVY_SERVER-BASE",
                 "oozie-OOZIE_SERVER-BASE",
-                "ozone-GATEWAY-BASE",
-                "ozone-OZONE_DATANODE-BASE",
-                "ozone-OZONE_MANAGER-BASE",
-                "ozone-OZONE_RECON-BASE",
-                "ozone-STORAGE_CONTAINER_MANAGER-BASE",
+                "ozone-GATEWAY-BASE", 
+                "ozone-OZONE_DATANODE-BASE", 
+                "ozone-OZONE_MANAGER-BASE", 
+                "ozone-OZONE_PROMETHEUS-BASE", 
+                "ozone-OZONE_RECON-BASE", 
+                "ozone-S3_GATEWAY-BASE", 
+                "ozone-STORAGE_CONTAINER_MANAGER-BASE", 
                 "phoenix-PHOENIX_QUERY_SERVER-BASE",
                 "ranger-RANGER_ADMIN-BASE",
                 "ranger-RANGER_TAGSYNC-BASE",
@@ -121,8 +123,16 @@
                 "value": "oozie"
             },
             {
-                "name": "ranger-RANGER_ADMIN-BASE-ranger_database_password",
+                "name": "ranger-rangeradmin_database_password",
                 "value": "cloudera"
+            },
+            {
+                "name": "ranger-rangeradmin_database_user",
+                "value": "ranger"
+            },
+            {
+                "name": "ranger-rangeradmin_ranger_database_host",
+                "value": "127.0.0.1"
             },
             {
                 "name": "ranger-keyadmin_user_password",
@@ -143,14 +153,13 @@
         ]
     },
     "products": [
-        {
-            "version": "7.0.3-1.cdh7.0.3.p0.1635019",
+        {               
+            "version": "7.1.3-1.cdh7.1.3.p0.4992530",
             "product": "CDH"
         }
     ],
     "repositories": [
-            "https://archive.cloudera.com/cdh7/7.0.3.0/parcels/",
-            "https://archive.cloudera.com/cdh7/7.0/parcels/"
+            "https://archive.cloudera.com/cdh7/7.1.3.0/parcels/"
     ],
     "services": [
         {
@@ -267,6 +276,7 @@
                 }
             ]
         },
+                            
         {
             "refName": "ranger",
             "serviceType": "RANGER",
@@ -284,10 +294,23 @@
                     "variable": "ranger-rangerusersync_user_password"
                 },
                 {
+                      "name" : "ranger_database_host",
+                      "variable" : "ranger-rangeradmin_ranger_database_host"
+                },
+                {
+                      "name" : "ranger_database_user",
+                      "variable" : "ranger-rangeradmin_database_user"
+                },
+                {
+                       "name": "ranger_database_password",
+                       "variable": "ranger-rangeradmin_database_password"
+                },                  
+                {
                     "name": "keyadmin_user_password",
                     "variable": "ranger-keyadmin_user_password"
                 }
             ],
+            
             "roleConfigGroups": [
                 {
                     "refName": "ranger-RANGER_USERSYNC-BASE",
@@ -314,20 +337,12 @@
                     "roleType": "RANGER_ADMIN",
                     "configs": [
                         {
-                            "name": "ranger_database_host",
-                            "value": "127.0.0.1"
-                        },
-                        {
-                            "name": "ranger_database_user",
-                            "value": "ranger"
-                        },
-                        {
-                            "name": "ranger_database_password",
-                            "variable": "ranger-RANGER_ADMIN-BASE-ranger_database_password"
+                            "name" : "log_directory_free_space_percentage_thresholds",
+                            "value" : "{\"critical\":\"10.0\",\"warning\":\"20.0\"}"
                         }
                     ],
                     "base": true
-                }
+                }                
             ]
         },
         {
@@ -371,11 +386,17 @@
                 {
                     "refName": "livy-LIVY_SERVER-BASE",
                     "roleType": "LIVY_SERVER",
+		     "configs" : [ 
+			     {
+                                "name" : "log_directory_free_space_absolute_thresholds",
+                                "value" : "{\"critical\":\"never\",\"warning\":\"never\"}"
+                            }
+		     ],
                     "base": true
                 }
             ]
         },
-		{
+	{
 		  "refName": "kudu",
 		  "roleConfigGroups": [
 			{
@@ -773,6 +794,10 @@
                     "name": "hbase_thriftserver_security_authentication",
                     "value": "auth-conf"
                 },
+		{
+                    "name": "hbase_service_config_safety_valve",
+                    "value": "<property><name>phoenix.schema.isNamespaceMappingEnabled</name><value>true</value></property>"
+                },
                 {
                     "name": "hbase_security_authentication",
                     "value": "kerberos"
@@ -803,6 +828,10 @@
                     "name": "ozone.security.enabled",
                     "value": "true"
                 },
+		{
+                    "name" : "ozone.service.id",
+                    "value" : "ozone1"
+                },
                 {
                     "name": "hdfs_service",
                     "ref": "hdfs"
@@ -810,29 +839,39 @@
             ],
             "roleConfigGroups": [
                 {
-                    "refName": "ozone-GATEWAY-BASE",
-                    "roleType": "GATEWAY",
-                    "base": true
-                },
+                    "base": true, 
+                    "refName": "ozone-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }, 
                 {
-                    "refName": "ozone-OZONE_RECON-BASE",
-                    "roleType": "OZONE_RECON",
-                    "base": true
-                },
+                    "base": true, 
+                    "refName": "ozone-OZONE_RECON-BASE", 
+                    "roleType": "OZONE_RECON"
+                }, 
                 {
-                    "refName": "ozone-STORAGE_CONTAINER_MANAGER-BASE",
-                    "roleType": "STORAGE_CONTAINER_MANAGER",
-                    "base": true
-                },
+                    "base": true, 
+                    "refName": "ozone-STORAGE_CONTAINER_MANAGER-BASE", 
+                    "roleType": "STORAGE_CONTAINER_MANAGER"
+                }, 
                 {
-                    "refName": "ozone-OZONE_DATANODE-BASE",
-                    "roleType": "OZONE_DATANODE",
-                    "base": true
-                },
+                    "base": true, 
+                    "refName": "ozone-OZONE_DATANODE-BASE", 
+                    "roleType": "OZONE_DATANODE"
+                }, 
                 {
-                    "refName": "ozone-OZONE_MANAGER-BASE",
-                    "roleType": "OZONE_MANAGER",
-                    "base": true
+                    "base": true, 
+                    "refName": "ozone-S3_GATEWAY-BASE", 
+                    "roleType": "S3_GATEWAY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "ozone-OZONE_MANAGER-BASE", 
+                    "roleType": "OZONE_MANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "ozone-OZONE_PROMETHEUS-BASE", 
+                    "roleType": "OZONE_PROMETHEUS"
                 }
             ]
         }
