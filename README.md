@@ -150,10 +150,12 @@ sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setu
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup_krb.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup_krb.sh
 sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup_krb.sh
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
+sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.1.3/redhat7/yum/cloudera-manager-trial.repo
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/scripts/create_cluster.py
-sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDHCluster/templates/*.json
+
 
 systemctl enable httpd
 systemctl start httpd
