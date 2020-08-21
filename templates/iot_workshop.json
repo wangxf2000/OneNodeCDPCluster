@@ -1,6 +1,6 @@
 {
-  "cdhVersion": "7.0.3",
-  "cmVersion": "7.0.3",
+  "cdhVersion": "7.1.3",
+  "cmVersion": "7.1.3",
   "displayName": "SingleNodeCluster",
   "hostTemplates": [
     {
@@ -141,25 +141,25 @@
   "products": [
     {
       "product": "CFM",
-      "version": "1.0.1.0"
+      "version": "2.0.1.0"
     },
     {
       "product": "CDH",
-      "version": "7.0.3-1.cdh7.0.3.p0.1635019"
+      "version": "7.1.3-1.cdh7.1.3.p0.4992530"
     },
     {
       "product": "Anaconda",
-      "version": "5.1.0.1"
+      "version": "5.3.1"
     },
     {
       "product": "CDSW",
-      "version": "1.7.2.p1.2066404"
+      "version": "1.8.0.p1.4968660"
     }
   ],
   "repositories": [
-    "https://archive.cloudera.com/cdh7/7.0/parcels/",
-    "https://archive.cloudera.com/CFM/parcels/1.0.1.0/",
-    "https://archive.cloudera.com/cdsw1/1.7.2/parcels/",
+    "https://archive.cloudera.com/cdh7/7.1.3.0/parcels/",
+    "https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/",
+    "https://archive.cloudera.com/p/cdsw1/1.8.0/parcels/",
     "https://repo.continuum.io/pkgs/misc/parcels/archive/"
   ],
   "services": [
