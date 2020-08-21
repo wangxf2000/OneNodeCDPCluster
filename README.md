@@ -46,16 +46,17 @@ Below are instructions for creating the cluster with or without CDSW service. CD
 
 Currently, there is no automation process to download parcels for services such as Schema Registry. You need to download the required files from the official Cloudera website on your laptop. Then, sftp the `.parcel`, `.sha` and `.jar` files into the `/home/centos` or `/root` directory. The script takes care of placing these files into the correct folders during installation.
 
-For example, you can install Schema Registry once your host looks like the below:
+For example, you can install NIFI once your host looks like the below:
 
 ```
 $ ls -l /root/
--rwxr-xr-x. 1 centos centos 148855790 Aug  5 18:41 SCHEMAREGISTRY-0.7.0.1.0.0.0-11-el7.parcel
--rw-r--r--. 1 centos centos        41 Aug  5 18:41 SCHEMAREGISTRY-0.7.0.1.0.0.0-11-el7.parcel.sha
--rwxr-xr-x. 1 centos centos     14525 Aug  5 18:41 SCHEMAREGISTRY-0.7.0.jar
+-rw-r--r-- 1 root root 2856094189 Jul  8 11:31 CFM-2.0.1.0-71-el7.parcel
+-rw-r--r-- 1 root root         41 Jul  8 11:31 CFM-2.0.1.0-71-el7.parcel.sha
+-rw-r--r-- 1 root root      51956 Jul  8 11:31 NIFIREGISTRY-0.6.0.2.0.1.0-71.jar
+-rw-r--r-- 1 root root      62604 Jul  8 11:31 NIFI-1.11.4.2.0.1.0-71.jar
 ```
 
-To install Schema Registry, you must use an appropriate template file, like `all.json`.
+To install NIFI, you must use an appropriate template file, like `all.json`.
 
 ### Configuration and installation
 - If you created the VM on Azure and need to resize the OS disk, here are the [instructions](scripts/how-to-resize-os-disk.md).
