@@ -130,6 +130,7 @@ createrepo .
 
 ### replace cloudera repository to your own repository 
 ### modify the repository in setup.sh, scripts/create_cluster.py ,templates/*json files
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDHCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDHCluster/setup.sh
