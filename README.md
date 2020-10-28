@@ -107,8 +107,8 @@ wget http://central.maven.org/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/nifi-mq
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel  -P /var/www/html/pkgs/misc/parcels/archive/
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.3.1-el7.parcel.sha -P /var/www/html/pkgs/misc/parcels/archive/
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/www/html/pkgs/misc/parcels/archive/
-rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/index.html
-rm -rf /var/www/html/cm7/7.1.3/redhat7/yum/RPMS/x86_64/robots.txt
+rm -rf /var/www/html/cm7/7.1.4/redhat7/yum/RPMS/x86_64/index.html
+rm -rf /var/www/html/cm7/7.1.4/redhat7/yum/RPMS/x86_64/robots.txt
 ```
 ### replace username and password with your license's username and password, if you need CEM,CFM, CSA and CDSW 
 ```
@@ -136,7 +136,7 @@ wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.
 ```
 ### create the cm7's repo information and replace the link to your local repository
 ```
-cd /var/www/html/cm7/7.1.3/redhat7/yum/
+cd /var/www/html/cm7/7.1.4/redhat7/yum/
 createrepo .
 
 ### replace cloudera repository to your own repository 
