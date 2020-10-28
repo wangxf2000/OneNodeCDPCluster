@@ -140,6 +140,8 @@ cd /var/www/html/cm7/7.1.4/redhat7/yum/
 createrepo .
 
 ### replace cloudera repository to your own repository 
+### if your repository is the same as your Edge2AI Server, you can use the following replace statement.
+### otherwise, update the statement with your own IP address
 ### modify the repository in setup.sh, scripts/create_cluster.py ,templates/*json files
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
