@@ -138,6 +138,8 @@ wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.
 ```
 cd /var/www/html/cm7/7.1.4/redhat7/yum/
 createrepo .
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" /var/www/html/cm7/7.1.4/redhat7/yum/cloudera-manager-trial.repo
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.1.4/redhat7/yum/cloudera-manager-trial.repo
 
 ### replace cloudera repository to your own repository 
 ### if your repository is the same as your Edge2AI Server, you can use the following replace statement.
