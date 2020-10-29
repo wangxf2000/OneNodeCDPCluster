@@ -116,26 +116,34 @@
         "name": "oozie-OOZIE_SERVER-BASE-oozie_database_user",
         "value": "oozie"
       },
-      {
-        "name": "ranger-RANGER_ADMIN-BASE-ranger_database_password",
-        "value": "cloudera"
-      },
-      {
-        "name": "ranger-keyadmin_user_password",
-        "value": "BadPass#1"
-      },
-      {
-        "name": "ranger-rangeradmin_user_password",
-        "value": "BadPass#1"
-      },
-      {
-        "name": "ranger-rangertagsync_user_password",
-        "value": "BadPass#1"
-      },
-      {
-        "name": "ranger-rangerusersync_user_password",
-        "value": "BadPass#1"
-      }
+         {
+             "name": "ranger-rangeradmin_database_password",
+             "value": "cloudera"
+         },
+         {
+             "name": "ranger-rangeradmin_database_user",
+             "value": "ranger"
+         },
+         {
+             "name": "ranger-rangeradmin_ranger_database_host",
+             "value": "127.0.0.1"
+         },
+         {
+            "name":"ranger-keyadmin_user_password",
+            "value":"BadPass#1"
+         },
+         {
+            "name":"ranger-rangeradmin_user_password",
+            "value":"BadPass#1"
+         },
+         {
+            "name":"ranger-rangertagsync_user_password",
+            "value":"BadPass#1"
+         },
+         {
+            "name":"ranger-rangerusersync_user_password",
+            "value":"BadPass#1"
+         }
     ]
   },
   "products": [
@@ -204,58 +212,56 @@
       "serviceType": "OOZIE"
     },
     {
-      "refName": "ranger",
-      "roleConfigGroups": [
-        {
-          "base": true,
-          "refName": "ranger-RANGER_USERSYNC-BASE",
-          "roleType": "RANGER_USERSYNC"
-        },
-        {
-          "base": true,
-          "refName": "ranger-RANGER_TAGSYNC-BASE",
-          "roleType": "RANGER_TAGSYNC"
-        },
-        {
-          "base": true,
-          "configs": [
+         "refName":"ranger",
+         "roleConfigGroups":[
             {
-              "name": "ranger-rangeradmin_ranger_database_host",
-              "value": "127.0.0.1"
+               "base":true,
+               "refName":"ranger-RANGER_USERSYNC-BASE",
+               "roleType":"RANGER_USERSYNC"
             },
             {
-              "name": "ranger-rangeradmin_database_user",
-              "value": "ranger"
+               "base":true,
+               "refName":"ranger-RANGER_TAGSYNC-BASE",
+               "roleType":"RANGER_TAGSYNC"
             },
             {
-              "name": "ranger-rangeradmin_database_password",
-              "variable": "ranger-RANGER_ADMIN-BASE-ranger_database_password"
+               "base":true,
+               "refName":"ranger-RANGER_ADMIN-BASE",
+               "roleType":"RANGER_ADMIN"
             }
-          ],
-          "refName": "ranger-RANGER_ADMIN-BASE",
-          "roleType": "RANGER_ADMIN"
-        }
-      ],
-      "serviceConfigs": [
-        {
-          "name": "rangeradmin_user_password",
-          "variable": "ranger-rangeradmin_user_password"
-        },
-        {
-          "name": "rangertagsync_user_password",
-          "variable": "ranger-rangertagsync_user_password"
-        },
-        {
-          "name": "rangerusersync_user_password",
-          "variable": "ranger-rangerusersync_user_password"
-        },
-        {
-          "name": "keyadmin_user_password",
-          "variable": "ranger-keyadmin_user_password"
-        }
-      ],
-      "serviceType": "RANGER"
-    },
+         ],
+         "serviceConfigs":[
+                {
+                    "name": "rangeradmin_user_password",
+                    "variable": "ranger-rangeradmin_user_password"
+                },
+                {
+                    "name": "rangertagsync_user_password",
+                    "variable": "ranger-rangertagsync_user_password"
+                },
+                {
+                    "name": "rangerusersync_user_password",
+                    "variable": "ranger-rangerusersync_user_password"
+                },
+                {
+                      "name" : "ranger_database_host",
+                      "variable" : "ranger-rangeradmin_ranger_database_host"
+                },
+                {
+                      "name" : "ranger_database_user",
+                      "variable" : "ranger-rangeradmin_database_user"
+                },
+                {
+                       "name": "ranger_database_password",
+                       "variable": "ranger-rangeradmin_database_password"
+                },                  
+                {
+                    "name": "keyadmin_user_password",
+                    "variable": "ranger-keyadmin_user_password"
+                }
+         ],
+         "serviceType":"RANGER"
+      },
     {
       "refName": "atlas",
       "roleConfigGroups": [
