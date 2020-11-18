@@ -8,6 +8,7 @@
       "refName": "HostTemplate-0-from-YourHostname",
       "roleConfigGroupsRefNames": [
         "atlas-ATLAS_SERVER-BASE",
+        "flink-FLINK_HISTORY_SERVER-BASE", 
         "cdsw-CDSW_APPLICATION-BASE",
         "cdsw-CDSW_DOCKER-BASE",
         "cdsw-CDSW_MASTER-BASE",
@@ -28,21 +29,26 @@
         "kafka-KAFKA_BROKER-BASE",
         "kudu-KUDU_MASTER-BASE",
         "kudu-KUDU_TSERVER-BASE",
-        "nifi-NIFI_NODE-BASE",
-        "nifiregistry-NIFI_REGISTRY_SERVER-BASE",
-        "nifitoolkitca-NIFI_TOOLKIT_SERVER-BASE",
+        "nifi-NIFI_NODE-BASE", 
+        "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
         "oozie-OOZIE_SERVER-BASE",
+        "queuemanager-QUEUEMANAGER_STORE-BASE", 
+        "queuemanager-QUEUEMANAGER_WEBAPP-BASE", 
         "phoenix-PHOENIX_QUERY_SERVER-BASE",
         "ranger-RANGER_ADMIN-BASE",
         "ranger-RANGER_TAGSYNC-BASE",
         "ranger-RANGER_USERSYNC-BASE",
+        "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
         "solr-SOLR_SERVER-BASE",
         "spark_on_yarn-GATEWAY-BASE",
         "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE",
+        "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+        "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
         "tez-GATEWAY-BASE",
         "yarn-JOBHISTORY-BASE",
         "yarn-NODEMANAGER-BASE",
         "yarn-RESOURCEMANAGER-BASE",
+        "zeppelin-ZEPPELIN_SERVER-BASE",
         "zookeeper-SERVER-BASE"
       ]
     }
@@ -71,10 +77,6 @@
       {
         "name": "kudu-KUDU_TSERVER-BASE-fs_wal_dir",
         "value": "/kudu/twal"
-      },
-      {
-        "name": "nifitoolkitca-nifi.toolkit.tls.ca.server.token",
-        "value": "ClouderaNiFi_123"
       },
       {
         "name": "atlas-ATLAS_SERVER-BASE-atlas_admin_password",
@@ -116,58 +118,87 @@
         "name": "oozie-OOZIE_SERVER-BASE-oozie_database_user",
         "value": "oozie"
       },
-         {
-             "name": "ranger-rangeradmin_database_password",
-             "value": "cloudera"
-         },
-         {
-             "name": "ranger-rangeradmin_database_user",
-             "value": "ranger"
-         },
-         {
-             "name": "ranger-rangeradmin_ranger_database_host",
-             "value": "127.0.0.1"
-         },
-         {
-            "name":"ranger-keyadmin_user_password",
-            "value":"BadPass#1"
-         },
-         {
-            "name":"ranger-rangeradmin_user_password",
-            "value":"BadPass#1"
-         },
-         {
-            "name":"ranger-rangertagsync_user_password",
-            "value":"BadPass#1"
-         },
-         {
-            "name":"ranger-rangerusersync_user_password",
-            "value":"BadPass#1"
-         }
+      {
+          "name": "ranger-rangeradmin_database_password",
+          "value": "cloudera"
+      },
+      {
+          "name": "ranger-rangeradmin_database_user",
+          "value": "ranger"
+      },
+      {
+          "name": "ranger-rangeradmin_ranger_database_host",
+          "value": "127.0.0.1"
+      },
+      {
+         "name":"ranger-keyadmin_user_password",
+         "value":"BadPass#1"
+      },
+      {
+         "name":"ranger-rangeradmin_user_password",
+         "value":"BadPass#1"
+      },
+      {
+         "name":"ranger-rangertagsync_user_password",
+         "value":"BadPass#1"
+      },
+      {
+         "name":"ranger-rangerusersync_user_password",
+         "value":"BadPass#1"
+      },
+      {
+          "name": "schemaregistry-database_host", 
+          "value": "YourHostname"
+      }, 
+      {
+          "name": "schemaregistry-database_name", 
+          "value": "registry"
+      }, 
+      {
+          "name": "schemaregistry-database_password", 
+          "value": "<changeme>"
+      }, 
+      {
+          "name": "schemaregistry-database_user", 
+          "value": "registry"
+      }, 
+      {
+          "name": "streams_messaging_manager-smm_database_host", 
+          "value": "YourHostname"
+      }, 
+      {
+          "name": "streams_messaging_manager-smm_database_password", 
+          "value": "<changeme>"
+      }
     ]
   },
   "products": [
-    {
-      "product": "CFM",
-      "version": "2.0.1.0-71"
-    },
-    {
-      "product": "CDH",
-      "version": "7.1.4-1.cdh7.1.4.p0.6300266"
-    },
-    {
-      "product": "Anaconda",
-      "version": "5.3.1"
-    },
-    {
-      "product": "CDSW",
-      "version": "1.8.0.p1.4968660"
-    }
-  ],
+      {
+          "product": "FLINK", 
+          "version": "1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501"
+      }, 
+      {
+          "product": "CDSW", 
+          "version": "1.8.0.p1.4968660"
+      }, 
+      {
+          "product": "CDH", 
+          "version": "7.1.4-1.cdh7.1.4.p0.6300266"
+      }, 
+      {
+          "product": "CFM", 
+          "version": "2.0.1.0-71"
+      }, 
+      {
+          "product": "Anaconda", 
+          "version": "5.3.1"
+      }
+  ], 
   "repositories": [
     "https://archive.cloudera.com/cdh7/7.1.4.0/parcels/",
     "https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/",
     "https://archive.cloudera.com/p/cdsw1/1.8.0/parcels/",
+    "https://archive.cloudera.com/p/csa/1.2.0.0/parcels/",
     "https://repo.continuum.io/pkgs/misc/parcels/archive/"
   ],
   "services": [
@@ -464,6 +495,12 @@
           "roleType": "JOBHISTORY"
         }
       ],
+      "serviceConfigs": [
+           {
+               "name": "queuemanager_service", 
+               "ref": "queuemanager"
+           }
+       ], 
       "serviceType": "YARN"
     },
     {
@@ -596,74 +633,155 @@
       "serviceType": "CDSW"
     },
     {
-      "refName": "nifiregistry",
-      "roleConfigGroups": [
-        {
-          "base": true,
-          "refName": "nifiregistry-NIFI_REGISTRY_SERVER-BASE",
-          "roleType": "NIFI_REGISTRY_SERVER"
-        }
-      ],
-     "serviceConfigs": [
-       {
-          "name": "nifitoolkitca_service",
-          "ref": "nifitoolkitca"
-       }
-     ],
-      "serviceType": "NIFIREGISTRY"
-    },
-    {
-      "refName": "nifitoolkitca",
-      "roleConfigGroups": [
-        {
-          "base": true,
-          "refName": "nifitoolkitca-NIFI_TOOLKIT_SERVER-BASE",
-          "roleType": "NIFI_TOOLKIT_SERVER"
-        }
-      ],
-      "serviceConfigs": [
-        {
-          "name": "nifi.toolkit.tls.ca.server.token",
-          "variable": "nifitoolkitca-nifi.toolkit.tls.ca.server.token"
-        }
-      ],
-      "serviceType": "NIFITOOLKITCA"
-    },
-    {
-      "refName": "nifi",
-      "roleConfigGroups": [
-        {
-          "base": true,
-          "configs": [
+        "refName": "queuemanager", 
+        "roleConfigGroups": [
             {
-              "name": "nifi.remote.input.secure",
-              "value": "false"
-            },
+                "base": true, 
+                "refName": "queuemanager-QUEUEMANAGER_STORE-BASE", 
+                "roleType": "QUEUEMANAGER_STORE"
+            }, 
             {
-              "name": "nifi.remote.input.socket.port",
-              "value": "50999"
-            },
-            {
-              "name": "nifi.remote.input.host",
-              "value": "YourHostname"
+                "base": true, 
+                "refName": "queuemanager-QUEUEMANAGER_WEBAPP-BASE", 
+                "roleType": "QUEUEMANAGER_WEBAPP"
             }
-          ],
-          "refName": "nifi-NIFI_NODE-BASE",
-          "roleType": "NIFI_NODE"
-        }
-      ],
-      "serviceConfigs": [
-        {
-          "name": "zookeeper_service",
-          "ref": "zookeeper"
-        },
-        {
-          "name": "nifitoolkitca_service",
-          "ref": "nifitoolkitca"
-        }
-      ],
-      "serviceType": "NIFI"
-    },
+        ], 
+        "serviceConfigs": [
+            {
+                "name": "zookeeper_service", 
+                "ref": "zookeeper"
+            }
+        ], 
+        "serviceType": "QUEUEMANAGER"
+    }, 
+    {
+        "refName": "nifi", 
+        "roleConfigGroups": [
+            {
+                "base": true, 
+                "configs": [
+                    {
+                        "name": "nifi.initial.admin.identity", 
+                        "value": "nifi"
+                    }
+                ], 
+                "refName": "nifi-NIFI_NODE-BASE", 
+                "roleType": "NIFI_NODE"
+            }
+        ], 
+        "serviceConfigs": [
+            {
+                "name": "zookeeper_service", 
+                "ref": "zookeeper"
+            }, 
+            {
+                "name": "atlas_service", 
+                "ref": "atlas"
+            }, 
+            {
+                "name": "ranger_service", 
+                "ref": "none"
+            }, 
+            {
+                "name": "knox_service", 
+                "ref": "none"
+            }, 
+            {
+                "name": "kafka_service", 
+                "ref": "kafka"
+            }, 
+            {
+                "name": "hdfs_service", 
+                "ref": "hdfs"
+            }
+        ], 
+        "serviceType": "NIFI"
+    }, 
+    {
+        "refName": "schemaregistry", 
+        "roleConfigGroups": [
+            {
+                "base": true, 
+                "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                "roleType": "SCHEMA_REGISTRY_SERVER"
+            }
+        ], 
+        "serviceConfigs": [
+            {
+                "name": "ranger_service", 
+                "ref": "ranger"
+            }, 
+            {
+                "name": "hdfs_service", 
+                "ref": "hdfs"
+            }, 
+            {
+                "name": "database_host", 
+                "variable": "schemaregistry-database_host"
+            }, 
+            {
+                "name": "database_name", 
+                "variable": "schemaregistry-database_name"
+            }, 
+            {
+                "name": "database_password", 
+                "variable": "schemaregistry-database_password"
+            }, 
+            {
+                "name": "database_user", 
+                "variable": "schemaregistry-database_user"
+            }
+        ], 
+        "serviceType": "SCHEMAREGISTRY"
+    }, 
+    {
+        "refName": "streams_messaging_manager", 
+        "roleConfigGroups": [
+            {
+                "base": true, 
+                "configs": [
+                    {
+                        "name": "cm.metrics.service.monitor.host", 
+                        "value": "YourHostname"
+                    }
+                ], 
+                "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+                "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
+            }, 
+            {
+                "base": true, 
+                "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
+                "roleType": "STREAMS_MESSAGING_MANAGER_UI"
+            }
+        ], 
+        "serviceConfigs": [
+            {
+                "name": "smm_database_password", 
+                "variable": "streams_messaging_manager-smm_database_password"
+            }, 
+            {
+                "name": "zookeeper_service", 
+                "ref": "zookeeper"
+            }, 
+            {
+                "name": "ranger_service", 
+                "ref": "ranger"
+            }, 
+            {
+                "name": "kafka_service", 
+                "ref": "kafka"
+            }, 
+            {
+                "name": "schemaregistry_service", 
+                "ref": "schemaregistry"
+            }, 
+            {
+                "name": "smm_database_host", 
+                "variable": "streams_messaging_manager-smm_database_host"
+            }
+        ], 
+        "serviceType": "STREAMS_MESSAGING_MANAGER"
+    }, 
     {
       "refName": "kudu",
       "roleConfigGroups": [
@@ -771,6 +889,72 @@
         }
       ],
       "serviceType": "PHOENIX"
-    }
+    },
+    {
+    "refName": "nifiregistry", 
+    "roleConfigGroups": [
+        {
+            "base": true, 
+            "configs": [
+                {
+                    "name": "nifi.registry.initial.admin.identity", 
+                    "value": "nifiregistry"
+                }
+            ], 
+            "refName": "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
+            "roleType": "NIFI_REGISTRY_SERVER"
+        }
+    ], 
+    "serviceConfigs": [
+        {
+            "name": "ranger_service", 
+            "ref": "none"
+        }, 
+        {
+            "name": "nifi_service", 
+            "ref": "nifi"
+        }
+    ], 
+    "serviceType": "NIFIREGISTRY"
+   }, 
+   {
+   "refName": "flink", 
+   "roleConfigGroups": [
+       {
+           "base": true, 
+           "configs": [
+               {
+                   "name": "process_auto_restart", 
+                   "value": "true"
+               }, 
+               {
+                   "name": "historyserver_web_port", 
+                   "value": "8083"
+               }
+           ], 
+           "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
+           "roleType": "FLINK_HISTORY_SERVER"
+       }
+   ], 
+   "serviceConfigs": [
+       {
+           "name": "yarn_service", 
+           "ref": "yarn"
+       }, 
+       {
+           "name": "zookeeper_service", 
+           "ref": "zookeeper"
+       }, 
+       {
+           "name": "hive_service", 
+           "ref": "hive"
+       }, 
+       {
+           "name": "hdfs_service", 
+           "ref": "hdfs"
+       }
+   ], 
+   "serviceType": "FLINK"
+  }
   ]
 }
