@@ -9,9 +9,6 @@
             "roleConfigGroupsRefNames": [
                 "atlas-ATLAS_SERVER-BASE", 
                 "flink-FLINK_HISTORY_SERVER-BASE", 
-                "cdsw-CDSW_APPLICATION-BASE",
-                "cdsw-CDSW_DOCKER-BASE",
-                "cdsw-CDSW_MASTER-BASE",
                 "hbase-MASTER-BASE", 
                 "hbase-REGIONSERVER-BASE", 
                 "hdfs-BALANCER-BASE", 
@@ -200,255 +197,195 @@
         "https://repo.continuum.io/pkgs/misc/parcels/archive/"
     ], 
     "services": [
-     {
-         "refName": "hive", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "hive-GATEWAY-BASE", 
-                 "roleType": "GATEWAY"
-             }, 
-             {
-                 "base": true, 
-                 "refName": "hive-HIVEMETASTORE-BASE", 
-                 "roleType": "HIVEMETASTORE"
-             }
-         ], 
-         "serviceConfigs": [
-             {
-                 "name": "hive_metastore_database_password", 
-                 "variable": "hive-hive_metastore_database_password"
-             }, 
-             {
-                 "name": "hive_metastore_database_host", 
-                 "variable": "hive-hive_metastore_database_host"
-             }
-         ], 
-         "serviceType": "HIVE"
-     }, 
-     {
-         "refName": "zookeeper", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "zookeeper-SERVER-BASE", 
-                 "roleType": "SERVER"
-             }
-         ], 
-         "serviceType": "ZOOKEEPER"
-     }, 
-     {
-         "refName": "atlas", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "configs": [
-                     {
-                         "name": "atlas_authentication_method_file", 
-                         "value": "true"
-                     }, 
-                     {
-                         "name": "atlas_admin_password", 
-                         "variable": "atlas-ATLAS_SERVER-BASE-atlas_admin_password"
-                     }
-                 ], 
-                 "refName": "atlas-ATLAS_SERVER-BASE", 
-                 "roleType": "ATLAS_SERVER"
-             }
-         ], 
-         "serviceType": "ATLAS"
-     }, 
-     {
-         "refName": "hive_on_tez", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "hive_on_tez-HIVESERVER2-BASE", 
-                 "roleType": "HIVESERVER2"
-             }
-         ], 
-         "serviceType": "HIVE_ON_TEZ"
-     }, 
-     {
-         "refName": "oozie", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "configs": [
-                     {
-                         "name": "oozie_database_user", 
-                         "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
-                     }, 
-                     {
-                         "name": "oozie_database_host", 
-                         "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
-                     }, 
-                     {
-                         "name": "oozie_database_type", 
-                         "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
-                     }, 
-                     {
-                         "name": "oozie_database_password", 
-                         "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
-                     }
-                 ], 
-                 "refName": "oozie-OOZIE_SERVER-BASE", 
-                 "roleType": "OOZIE_SERVER"
-             }
-         ], 
-         "serviceType": "OOZIE"
-     }, 
-     {
-         "refName": "ranger", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "ranger-RANGER_USERSYNC-BASE", 
-                 "roleType": "RANGER_USERSYNC"
-             }, 
-             {
-                 "base": true, 
-                 "refName": "ranger-RANGER_TAGSYNC-BASE", 
-                 "roleType": "RANGER_TAGSYNC"
-             }, 
-             {
-                 "base": true, 
-                 "refName": "ranger-RANGER_ADMIN-BASE", 
-                 "roleType": "RANGER_ADMIN"
-             }
-         ], 
-         "serviceConfigs": [
-             {
-                 "name": "ranger_database_password", 
-                 "variable": "ranger-ranger_database_password"
-             }, 
-             {
-                 "name": "rangeradmin_user_password", 
-                 "variable": "ranger-rangeradmin_user_password"
-             }, 
-             {
-                 "name": "rangertagsync_user_password", 
-                 "variable": "ranger-rangertagsync_user_password"
-             }, 
-             {
-                 "name": "ranger_database_host", 
-                 "variable": "ranger-ranger_database_host"
-             }, 
-             {
-                 "name": "rangerusersync_user_password", 
-                 "variable": "ranger-rangerusersync_user_password"
-             }, 
-             {
-                 "name": "keyadmin_user_password", 
-                 "variable": "ranger-keyadmin_user_password"
-             }, 
-             {
-                 "name": "ranger_database_user", 
-                 "variable": "ranger-ranger_database_user"
-             }
-         ], 
-         "serviceType": "RANGER"
-     }, 
-     {
-         "refName": "tez", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "tez-GATEWAY-BASE", 
-                 "roleType": "GATEWAY"
-             }
-         ], 
-         "serviceType": "TEZ"
-     }, 
-     {
-         "refName": "zeppelin", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "refName": "zeppelin-ZEPPELIN_SERVER-BASE", 
-                 "roleType": "ZEPPELIN_SERVER"
-             }
-         ], 
-         "serviceType": "ZEPPELIN"
-     }, 
-     {
-         "refName": "livy", 
-         "roleConfigGroups": [
-             {
-                 "base": true, 
-                 "configs": [
-                     {
-                         "name": "process_auto_restart", 
-                         "value": "true"
-                     }
-                 ], 
-                 "refName": "livy-LIVY_SERVER-BASE", 
-                 "roleType": "LIVY_SERVER"
-             }
-         ], 
-         "serviceType": "LIVY"
-     }, 
-    {
-      "refName": "cdsw",
-      "roleConfigGroups": [
         {
-          "base": true,
-          "refName": "cdsw-CDSW_APPLICATION-BASE",
-          "roleType": "CDSW_APPLICATION"
-        },
+            "refName": "hive", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hive-HIVEMETASTORE-BASE", 
+                    "roleType": "HIVEMETASTORE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hive_metastore_database_password", 
+                    "variable": "hive-hive_metastore_database_password"
+                }, 
+                {
+                    "name": "hive_metastore_database_host", 
+                    "variable": "hive-hive_metastore_database_host"
+                }
+            ], 
+            "serviceType": "HIVE"
+        }, 
         {
-          "base": true,
-          "refName": "cdsw-CDSW_MASTER-BASE",
-          "roleType": "CDSW_MASTER"
-        },
+            "refName": "zookeeper", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zookeeper-SERVER-BASE", 
+                    "roleType": "SERVER"
+                }
+            ], 
+            "serviceType": "ZOOKEEPER"
+        }, 
         {
-          "base": true,
-          "configs": [
-            {
-              "name": "cdsw.docker.devices.config",
-              "value": "YourDockerDevice"
-            }
-          ],
-          "refName": "cdsw-CDSW_DOCKER-BASE",
-          "roleType": "CDSW_DOCKER"
-        }
-      ],
-      "serviceConfigs": [
+            "refName": "atlas", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "atlas_authentication_method_file", 
+                            "value": "true"
+                        }, 
+                        {
+                            "name": "atlas_admin_password", 
+                            "variable": "atlas-ATLAS_SERVER-BASE-atlas_admin_password"
+                        }
+                    ], 
+                    "refName": "atlas-ATLAS_SERVER-BASE", 
+                    "roleType": "ATLAS_SERVER"
+                }
+            ], 
+            "serviceType": "ATLAS"
+        }, 
         {
-          "name": "hive_service",
-          "ref": "hive"
-        },
+            "refName": "hive_on_tez", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive_on_tez-HIVESERVER2-BASE", 
+                    "roleType": "HIVESERVER2"
+                }
+            ], 
+            "serviceType": "HIVE_ON_TEZ"
+        }, 
         {
-          "name": "spark_on_yarn_service",
-          "ref": "spark_on_yarn"
-        },
+            "refName": "oozie", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "oozie_database_user", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
+                        }, 
+                        {
+                            "name": "oozie_database_host", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
+                        }, 
+                        {
+                            "name": "oozie_database_type", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
+                        }, 
+                        {
+                            "name": "oozie_database_password", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
+                        }
+                    ], 
+                    "refName": "oozie-OOZIE_SERVER-BASE", 
+                    "roleType": "OOZIE_SERVER"
+                }
+            ], 
+            "serviceType": "OOZIE"
+        }, 
         {
-          "name": "cdsw.domain.config",
-          "value": "YourCDSWDomain"
-        },
+            "refName": "ranger", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "ranger-RANGER_USERSYNC-BASE", 
+                    "roleType": "RANGER_USERSYNC"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "ranger-RANGER_TAGSYNC-BASE", 
+                    "roleType": "RANGER_TAGSYNC"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "ranger-RANGER_ADMIN-BASE", 
+                    "roleType": "RANGER_ADMIN"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "ranger_database_password", 
+                    "variable": "ranger-ranger_database_password"
+                }, 
+                {
+                    "name": "rangeradmin_user_password", 
+                    "variable": "ranger-rangeradmin_user_password"
+                }, 
+                {
+                    "name": "rangertagsync_user_password", 
+                    "variable": "ranger-rangertagsync_user_password"
+                }, 
+                {
+                    "name": "ranger_database_host", 
+                    "variable": "ranger-ranger_database_host"
+                }, 
+                {
+                    "name": "rangerusersync_user_password", 
+                    "variable": "ranger-rangerusersync_user_password"
+                }, 
+                {
+                    "name": "keyadmin_user_password", 
+                    "variable": "ranger-keyadmin_user_password"
+                }, 
+                {
+                    "name": "ranger_database_user", 
+                    "variable": "ranger-ranger_database_user"
+                }
+            ], 
+            "serviceType": "RANGER"
+        }, 
         {
-          "name": "yarn_service",
-          "ref": "yarn"
-        },
+            "refName": "tez", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "tez-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "TEZ"
+        }, 
         {
-          "name": "solr_service",
-          "ref": "solr"
-        },
+            "refName": "zeppelin", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zeppelin-ZEPPELIN_SERVER-BASE", 
+                    "roleType": "ZEPPELIN_SERVER"
+                }
+            ], 
+            "serviceType": "ZEPPELIN"
+        }, 
         {
-          "name": "hbase_service",
-          "ref": "hbase"
-        },
-        {
-          "name": "hdfs_service",
-          "ref": "hdfs"
-        },
-        {
-          "name": "cdsw.master.ip.config",
-          "value": "YourPrivateIP"
-        }
-      ],
-      "serviceType": "CDSW"
-    },
+            "refName": "livy", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "process_auto_restart", 
+                            "value": "true"
+                        }
+                    ], 
+                    "refName": "livy-LIVY_SERVER-BASE", 
+                    "roleType": "LIVY_SERVER"
+                }
+            ], 
+            "serviceType": "LIVY"
+        }, 
+        
         {
             "refName": "spark_on_yarn", 
             "roleConfigGroups": [
