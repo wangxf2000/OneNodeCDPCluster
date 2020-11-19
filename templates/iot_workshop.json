@@ -59,6 +59,12 @@
                 "hostTemplateRefName": "HostTemplate-0-from-YourHostname"
             }
         ], 
+        "roleConfigGroups": [
+            {
+                "name": "", 
+                "rcgRefName": "hdfs-DATANODE-1"
+            }
+        ], 
         "variables": [
             {
                 "name": "atlas-ATLAS_SERVER-BASE-atlas_admin_password", 
