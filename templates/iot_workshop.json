@@ -55,7 +55,7 @@
         "clusterName": "SingleNodeCluster", 
         "hosts": [
             {
-                "hostName": "SingleNodeCluster", 
+                "hostName": "YourHostname", 
                 "hostTemplateRefName": "HostTemplate-0-from-YourHostname"
             }
         ], 
