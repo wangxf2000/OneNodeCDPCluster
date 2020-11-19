@@ -8,11 +8,14 @@
             "refName": "HostTemplate-0-from-YourHostname", 
             "roleConfigGroupsRefNames": [
                 "atlas-ATLAS_SERVER-BASE", 
+                "cdsw-CDSW_APPLICATION-BASE", 
+                "cdsw-CDSW_DOCKER-BASE", 
+                "cdsw-CDSW_MASTER-BASE", 
                 "flink-FLINK_HISTORY_SERVER-BASE", 
                 "hbase-MASTER-BASE", 
                 "hbase-REGIONSERVER-BASE", 
                 "hdfs-BALANCER-BASE", 
-                "hdfs-DATANODE-BASE", 
+                "hdfs-DATANODE-1", 
                 "hdfs-NAMENODE-BASE", 
                 "hdfs-SECONDARYNAMENODE-BASE", 
                 "hive-GATEWAY-BASE", 
@@ -27,6 +30,7 @@
                 "nifi-NIFI_NODE-BASE", 
                 "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
                 "oozie-OOZIE_SERVER-BASE", 
+                "phoenix-PHOENIX_QUERY_SERVER-BASE", 
                 "queuemanager-QUEUEMANAGER_STORE-BASE", 
                 "queuemanager-QUEUEMANAGER_WEBAPP-BASE", 
                 "ranger-RANGER_ADMIN-BASE", 
@@ -51,11 +55,17 @@
         "clusterName": "SingleNodeCluster", 
         "hosts": [
             {
-                "hostName": "YourHostname",
+                "hostName": "SingleNodeCluster", 
                 "hostTemplateRefName": "HostTemplate-0-from-YourHostname"
             }
         ], 
         "lenient": false, 
+        "roleConfigGroups": [
+            {
+                "name": "", 
+                "rcgRefName": "hdfs-DATANODE-1"
+            }
+        ], 
         "variables": [
             {
                 "name": "atlas-ATLAS_SERVER-BASE-atlas_admin_password", 
@@ -83,19 +93,19 @@
             }, 
             {
                 "name": "kudu-KUDU_MASTER-BASE-fs_data_dirs", 
-                "value": "/kudu/mdir"
-            }, 
-            {
-                "name": "kudu-KUDU_MASTER-BASE-fs_wal_dir", 
                 "value": "/kudu/mwal"
             }, 
             {
+                "name": "kudu-KUDU_MASTER-BASE-fs_wal_dir", 
+                "value": "/kudu/mdir"
+            }, 
+            {
                 "name": "kudu-KUDU_TSERVER-BASE-fs_data_dirs", 
-                "value": "/kudu/tdir"
+                "value": "/kudu/twal"
             }, 
             {
                 "name": "kudu-KUDU_TSERVER-BASE-fs_wal_dir", 
-                "value": "/kudu/twal"
+                "value": "/kudu/tdir"
             }, 
             {
                 "name": "oozie-OOZIE_SERVER-BASE-oozie_database_host", 
@@ -190,11 +200,12 @@
         }
     ], 
     "repositories": [
-        "https://archive.cloudera.com/cdh7/7.1.4.0/parcels/",
-        "https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/",
-        "https://archive.cloudera.com/p/cdsw1/1.8.0/parcels/",
-        "https://archive.cloudera.com/p/csa/1.2.0.0/parcels/",
-        "https://repo.continuum.io/pkgs/misc/parcels/archive/"
+        "http://10.0.0.145/cdh7/7.1.4.0/parcels/", 
+        "http://10.0.0.145/csa/1.2.0.0/parcels/", 
+        "http://10.0.0.145/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/", 
+        "http://10.0.0.145/cdsw1/1.8.0/parcels/", 
+        "http://10.0.0.145/pkgs/misc/parcels/archive/", 
+        "https://archive.cloudera.com/cdh5/parcels/5.16/"
     ], 
     "services": [
         {
@@ -373,30 +384,17 @@
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }
-                    ], 
                     "refName": "livy-LIVY_SERVER-BASE", 
                     "roleType": "LIVY_SERVER"
                 }
             ], 
             "serviceType": "LIVY"
         }, 
-        
         {
             "refName": "spark_on_yarn", 
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }
-                    ], 
                     "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
                     "roleType": "SPARK_YARN_HISTORY_SERVER"
                 }, 
@@ -441,23 +439,11 @@
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }
-                    ], 
                     "refName": "hue-HUE_SERVER-BASE", 
                     "roleType": "HUE_SERVER"
                 }, 
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }
-                    ], 
                     "refName": "hue-HUE_LOAD_BALANCER-BASE", 
                     "roleType": "HUE_LOAD_BALANCER"
                 }
@@ -493,13 +479,19 @@
                 }, 
                 {
                     "base": true, 
-                    "refName": "hdfs-DATANODE-BASE", 
-                    "roleType": "DATANODE"
-                }, 
-                {
-                    "base": true, 
                     "refName": "hdfs-BALANCER-BASE", 
                     "roleType": "BALANCER"
+                }, 
+                {
+                    "base": false, 
+                    "configs": [
+                        {
+                            "name": "role_health_suppression_data_node_free_space_remaining", 
+                            "value": "true"
+                        }
+                    ], 
+                    "refName": "hdfs-DATANODE-1", 
+                    "roleType": "DATANODE"
                 }
             ], 
             "serviceConfigs": [
@@ -508,16 +500,8 @@
                     "value": "1"
                 }, 
                 {
-                    "name": "service_config_suppression_datanode_count_validator", 
-                    "value": "true"
-                }, 
-                {
                     "name": "hdfs_under_replicated_blocks_thresholds", 
                     "value": "{\"warning\":\"never\",\"critical\":\"never\"}"
-                }, 
-                {
-                    "name": "hdfs_block_placement_policy", 
-                    "value": "org.apache.hadoop.hdfs.server.blockmanagement.BlockPlacementPolicyWithUpgradeDomain"
                 }, 
                 {
                     "name": "hdfs_verify_ec_with_topology_enabled", 
@@ -525,6 +509,10 @@
                 }, 
                 {
                     "name": "enable_ranger_authorization", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "service_health_suppression_hdfs_free_space_remaining", 
                     "value": "true"
                 }
             ], 
@@ -539,10 +527,6 @@
                         {
                             "name": "yarn_scheduler_maximum_allocation_mb", 
                             "value": "6144"
-                        }, 
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
                         }
                     ], 
                     "refName": "yarn-RESOURCEMANAGER-BASE", 
@@ -561,12 +545,6 @@
                 }, 
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }
-                    ], 
                     "refName": "yarn-JOBHISTORY-BASE", 
                     "roleType": "JOBHISTORY"
                 }
@@ -593,12 +571,6 @@
                     "roleType": "MASTER"
                 }
             ], 
-            "serviceConfigs": [
-                {
-                    "name": "atlas_service", 
-                    "ref": "none"
-                }
-            ], 
             "serviceType": "HBASE"
         }, 
         {
@@ -622,49 +594,6 @@
                 }
             ], 
             "serviceType": "QUEUEMANAGER"
-        }, 
-        {
-            "refName": "nifi", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "nifi.initial.admin.identity", 
-                            "value": "nifi"
-                        }
-                    ], 
-                    "refName": "nifi-NIFI_NODE-BASE", 
-                    "roleType": "NIFI_NODE"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "atlas_service", 
-                    "ref": "atlas"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
-                }, 
-                {
-                    "name": "knox_service", 
-                    "ref": "none"
-                }, 
-                {
-                    "name": "kafka_service", 
-                    "ref": "kafka"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }
-            ], 
-            "serviceType": "NIFI"
         }, 
         {
             "refName": "schemaregistry", 
@@ -708,12 +637,6 @@
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "configs": [
-                        {
-                            "name": "cm.metrics.service.monitor.host", 
-                            "value": "YourHostname"
-                        }
-                    ], 
                     "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
                     "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
                 }, 
@@ -750,6 +673,185 @@
                 }
             ], 
             "serviceType": "STREAMS_MESSAGING_MANAGER"
+        }, 
+        {
+            "refName": "flink", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "process_auto_restart", 
+                            "value": "true"
+                        }, 
+                        {
+                            "name": "historyserver_web_port", 
+                            "value": "8083"
+                        }
+                    ], 
+                    "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
+                    "roleType": "FLINK_HISTORY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "yarn_service", 
+                    "ref": "yarn"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hive_service", 
+                    "ref": "hive"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }
+            ], 
+            "serviceType": "FLINK"
+        }, 
+        {
+            "refName": "nifi", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "nifi-NIFI_NODE-BASE", 
+                    "roleType": "NIFI_NODE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "atlas_service", 
+                    "ref": "atlas"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }
+            ], 
+            "serviceType": "NIFI"
+        }, 
+        {
+            "refName": "nifiregistry", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
+                    "roleType": "NIFI_REGISTRY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "ranger_service", 
+                    "ref": "none"
+                }, 
+                {
+                    "name": "nifi_service", 
+                    "ref": "nifi"
+                }
+            ], 
+            "serviceType": "NIFIREGISTRY"
+        }, 
+        {
+            "refName": "phoenix", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "phoenix-PHOENIX_QUERY_SERVER-BASE", 
+                    "roleType": "PHOENIX_QUERY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hbase_service", 
+                    "ref": "hbase"
+                }
+            ], 
+            "serviceType": "PHOENIX"
+        }, 
+        {
+            "refName": "cdsw", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_APPLICATION-BASE", 
+                    "roleType": "CDSW_APPLICATION"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_MASTER-BASE", 
+                    "roleType": "CDSW_MASTER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "cdsw.docker.devices.config", 
+                            "value": "/dev/nvme1n1"
+                        }
+                    ], 
+                    "refName": "cdsw-CDSW_DOCKER-BASE", 
+                    "roleType": "CDSW_DOCKER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hive_service", 
+                    "ref": "hive"
+                }, 
+                {
+                    "name": "spark_on_yarn_service", 
+                    "ref": "spark_on_yarn"
+                }, 
+                {
+                    "name": "cdsw.domain.config", 
+                    "value": "YourCDSWDomain"
+                }, 
+                {
+                    "name": "yarn_service", 
+                    "ref": "yarn"
+                }, 
+                {
+                    "name": "solr_service", 
+                    "ref": "solr"
+                }, 
+                {
+                    "name": "hbase_service", 
+                    "ref": "hbase"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "cdsw.master.ip.config", 
+                    "value": "YourPrivateIP"
+                }
+            ], 
+            "serviceType": "CDSW"
         }, 
         {
             "refName": "kudu", 
@@ -796,72 +898,6 @@
                 }
             ], 
             "serviceType": "KUDU"
-        }, 
-        {
-            "refName": "nifiregistry", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "nifi.registry.initial.admin.identity", 
-                            "value": "nifiregistry"
-                        }
-                    ], 
-                    "refName": "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
-                    "roleType": "NIFI_REGISTRY_SERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
-                }, 
-                {
-                    "name": "nifi_service", 
-                    "ref": "nifi"
-                }
-            ], 
-            "serviceType": "NIFIREGISTRY"
-        }, 
-        {
-            "refName": "flink", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }, 
-                        {
-                            "name": "historyserver_web_port", 
-                            "value": "8083"
-                        }
-                    ], 
-                    "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
-                    "roleType": "FLINK_HISTORY_SERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "yarn_service", 
-                    "ref": "yarn"
-                }, 
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "hive_service", 
-                    "ref": "hive"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }
-            ], 
-            "serviceType": "FLINK"
         }
     ]
 }
