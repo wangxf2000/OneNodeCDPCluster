@@ -727,14 +727,6 @@
                     "ref": "zookeeper"
                 }, 
                 {
-                    "name": "atlas_service", 
-                    "ref": "atlas"
-                }, 
-                {
-                    "name": "kafka_service", 
-                    "ref": "kafka"
-                }, 
-                {
                     "name": "hdfs_service", 
                     "ref": "hdfs"
                 }
