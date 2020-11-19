@@ -731,10 +731,6 @@
                     "ref": "atlas"
                 }, 
                 {
-                    "name": "ranger_service", 
-                    "ref": "none"
-                }, 
-                {
                     "name": "kafka_service", 
                     "ref": "kafka"
                 }, 
@@ -755,10 +751,6 @@
                 }
             ], 
             "serviceConfigs": [
-                {
-                    "name": "ranger_service", 
-                    "ref": "none"
-                }, 
                 {
                     "name": "nifi_service", 
                     "ref": "nifi"
