@@ -22,10 +22,10 @@ systemctl enable rngd
 
 echo "-- Installing requirements for Stream Messaging Manager"
 # ignore to install nodejs
-#yum install -y gcc-c++ make 
-#curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
+yum install -y gcc-c++ make 
+curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
 #yum install nodejs -y
-#npm install forever -g 
+npm install forever -g 
 
 # Check input parameters
 case "$1" in
