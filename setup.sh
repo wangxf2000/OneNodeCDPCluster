@@ -68,7 +68,7 @@ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 echo "-- Install CM and MariaDB"
 
 ## CM 7
-wget https://archive.cloudera.com/cm7/7.1.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cm7/7.2.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
 
 ## MariaDB 10.1
 cat - >/etc/yum.repos.d/MariaDB.repo <<EOF
@@ -151,10 +151,10 @@ EOF
 
 
 echo "-- Install CSDs"
-wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar  -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/csa/1.2.0.0/csd/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/cdsw1/1.9.1/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.1.jar -P /opt/cloudera/csd/
 
 
 # install local CSDs
