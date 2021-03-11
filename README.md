@@ -120,11 +120,11 @@ wget https://username:password@archive.cloudera.com/p/cdsw1/1.9.1/parcels/manife
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.9.1/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.1.jar -P /var/www/html/cdsw1/1.9.1/csd/
 
 #CFM
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/manifest.json                       /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel           /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel.sha       /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar   /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar          /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/manifest.json   -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel   -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel.sha  -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
 
 #CSA
 wget https://username:password@archive.cloudera.com/p/csa/1.2.0.0/parcels/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501-el7.parcel -P /var/www/html/csa/1.2.0.0/parcels/
