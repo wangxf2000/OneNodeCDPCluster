@@ -20,7 +20,7 @@ systemctl daemon-reload
 systemctl start rngd
 systemctl enable rngd
 
-echo "-- Installing requirements for Stream Messaging Manager"
+#echo "-- Installing requirements for Stream Messaging Manager"
 # ignore to install nodejs
 #yum install -y gcc-c++ make 
 #curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
@@ -205,14 +205,14 @@ chown root:root /opt/cloudera/cem/minifi/lib/nifi-mqtt-nar-1.8.0.nar
 chmod 660 /opt/cloudera/cem/minifi/lib/nifi-mqtt-nar-1.8.0.nar
 
 
-echo "-- Enable passwordless root login via rsa key"
-ssh-keygen -f ~/myRSAkey -t rsa -N ""
-mkdir ~/.ssh
-cat ~/myRSAkey.pub >> ~/.ssh/authorized_keys
-chmod 400 ~/.ssh/authorized_keys
-ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
+#echo "-- Enable passwordless root login via rsa key"
+#ssh-keygen -f ~/myRSAkey -t rsa -N ""
+#mkdir ~/.ssh
+#cat ~/myRSAkey.pub >> ~/.ssh/authorized_keys
+#chmod 400 ~/.ssh/authorized_keys
+#ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
 #sed -i 's/.*PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
-systemctl restart sshd
+#systemctl restart sshd
 
 echo "-- Start CM, it takes about 2 minutes to be ready"
 systemctl start cloudera-scm-server
