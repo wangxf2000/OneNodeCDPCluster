@@ -10,7 +10,7 @@ sysctl vm.swappiness=1
 timedatectl set-timezone UTC
 
 echo "-- Install Java OpenJDK8 and other tools"
-yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools
+yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools bind bind-chroot
 yum install -y epel-release
 yum install -y python-pip
 pip install --upgrade pip==19.3
