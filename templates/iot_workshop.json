@@ -1,6 +1,6 @@
 {
-    "cdhVersion": "7.1.4", 
-    "cmVersion": "7.1.4", 
+    "cdhVersion": "7.1.5", 
+    "cmVersion": "7.2.4", 
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
         {
@@ -183,15 +183,15 @@
         }, 
         {
             "product": "CDSW", 
-            "version": "1.8.0.p1.4968660"
+            "version": "1.9.1.p1.10118148"
         }, 
         {
             "product": "CDH", 
-            "version": "7.1.4-1.cdh7.1.4.p0.6300266"
+            "version": "7.1.5-1.cdh7.1.5.p0.7431829"
         }, 
         {
             "product": "CFM", 
-            "version": "2.0.1.0-71"
+            "version": "2.0.4.0-80"
         }, 
         {
             "product": "Anaconda", 
@@ -199,11 +199,11 @@
         }
     ], 
     "repositories": [
-        "http://10.0.0.145/cdh7/7.1.4.0/parcels/", 
-        "http://10.0.0.145/csa/1.2.0.0/parcels/", 
-        "http://10.0.0.145/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/", 
-        "http://10.0.0.145/cdsw1/1.8.0/parcels/", 
-        "http://10.0.0.145/pkgs/misc/parcels/archive/", 
+        "http://10.0.0.31/cdh7/7.1.5.0/parcels/", 
+        "http://10.0.0.31/csa/1.2.0.0/parcels/", 
+        "http://10.0.0.31/CFM/2.x/redhat7/yum/tars/parcel/", 
+        "http://10.0.0.31/cdsw1/1.9.1/parcels/", 
+        "http://10.0.0.31/pkgs/misc/parcels/archive/", 
         "https://archive.cloudera.com/cdh5/parcels/5.16/"
     ], 
     "services": [
