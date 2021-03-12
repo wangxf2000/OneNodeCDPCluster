@@ -10,21 +10,22 @@ sysctl vm.swappiness=1
 timedatectl set-timezone UTC
 
 echo "-- Install Java OpenJDK8 and other tools"
-yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools
+yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools bind bind-chroot
 yum install -y epel-release
 yum install -y python-pip
-pip install --upgrade pip
+pip install --upgrade pip==19.3
 
 cp /usr/lib/systemd/system/rngd.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl start rngd
 systemctl enable rngd
 
-echo "-- Installing requirements for Stream Messaging Manager"
-yum install -y gcc-c++ make 
-curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
-yum install nodejs -y
-npm install forever -g 
+#echo "-- Installing requirements for Stream Messaging Manager"
+# ignore to install nodejs
+#yum install -y gcc-c++ make 
+#curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
+#yum install nodejs -y
+#npm install forever -g 
 
 # Check input parameters
 case "$1" in
@@ -67,7 +68,7 @@ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 echo "-- Install CM and MariaDB"
 
 ## CM 7
-wget https://archive.cloudera.com/cm7/7.1.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cm7/7.2.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
 
 ## MariaDB 10.1
 cat - >/etc/yum.repos.d/MariaDB.repo <<EOF
@@ -150,10 +151,10 @@ EOF
 
 
 echo "-- Install CSDs"
-wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFI-1.11.4.2.0.1.0-71.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/CFM/centos7/2.x/updates/2.0.1.0/tars/parcel/NIFIREGISTRY-0.6.0.2.0.1.0-71.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar  -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/csa/1.2.0.0/csd/FLINK-1.10.0-csa1.2.0.0-cdh7.1.1.0-565-3525501.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/cdsw1/1.8.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.8.0.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/cdsw1/1.9.1/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.1.jar -P /opt/cloudera/csd/
 
 
 # install local CSDs
@@ -169,18 +170,18 @@ chown cloudera-scm:cloudera-scm /opt/cloudera/parcel-repo/*
 
 echo "-- Install CEM Tarballs"
 mkdir -p /opt/cloudera/cem
-wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.2.0.0/CEM-1.2.0.0-centos7-tars-tarball.tar.gz -P /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM-1.2.0.0-centos7-tars-tarball.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/efm/efm-1.0.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/minifi/minifi-0.6.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
-tar xzf /opt/cloudera/cem/CEM/centos7/1.2.0.0-70/tars/minifi/minifi-toolkit-0.6.0.1.2.0.0-70-bin.tar.gz -C /opt/cloudera/cem
-rm -f /opt/cloudera/cem/CEM-1.2.0.0-centos7-tars-tarball.tar.gz
-ln -s /opt/cloudera/cem/efm-1.0.0.1.2.0.0-70 /opt/cloudera/cem/efm
-ln -s /opt/cloudera/cem/minifi-0.6.0.1.2.0.0-70 /opt/cloudera/cem/minifi
+wget https://archive.cloudera.com/CEM/centos7/1.x/updates/1.2.1.0/CEM-1.2.1.0-centos7-tars-tarball.tar.gz -P /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/CEM-1.2.1.0-centos7-tars-tarball.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/patch-cem-workdir-1599741235/centos/CEM/centos7/1.2.1.0-23/tars/efm/efm-1.0.0.1.2.1.0-23-bin.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/patch-cem-workdir-1599741235/centos/CEM/centos7/1.2.1.0-23/tars/minifi/minifi-0.6.0.1.2.1.0-23-bin.tar.gz -C /opt/cloudera/cem
+tar xzf /opt/cloudera/cem/patch-cem-workdir-1599741235/centos/CEM/centos7/1.2.1.0-23/tars/minifi/minifi-toolkit-0.6.0.1.2.1.0-23-bin.tar.gz -C /opt/cloudera/cem
+rm -f /opt/cloudera/cem/CEM-1.2.1.0-centos7-tars-tarball.tar.gz
+ln -s /opt/cloudera/cem/efm-1.0.0.1.2.1.0-23 /opt/cloudera/cem/efm
+ln -s /opt/cloudera/cem/minifi-0.6.0.1.2.1.0-23 /opt/cloudera/cem/minifi
 ln -s /opt/cloudera/cem/efm/bin/efm.sh /etc/init.d/efm
-chown -R root:root /opt/cloudera/cem/efm-1.0.0.1.2.0.0-70
-chown -R root:root /opt/cloudera/cem/minifi-0.6.0.1.2.0.0-70
-chown -R root:root /opt/cloudera/cem/minifi-toolkit-0.6.0.1.2.0.0-70
+chown -R root:root /opt/cloudera/cem/efm-1.0.0.1.2.1.0-23
+chown -R root:root /opt/cloudera/cem/minifi-0.6.0.1.2.1.0-23
+chown -R root:root /opt/cloudera/cem/minifi-toolkit-0.6.0.1.2.1.0-23
 
 rm -f /opt/cloudera/cem/efm/conf/efm.properties
 cp conf/efm.properties /opt/cloudera/cem/efm/conf
