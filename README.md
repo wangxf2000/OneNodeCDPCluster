@@ -137,7 +137,7 @@ wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.
 ```
 ### create the cm7's repo information and replace the link to your local repository
 ```
-cd /var/www/html/cm7/7.1.4/redhat7/yum/
+cd /var/www/html/cm7/7.2.4/redhat7/yum/
 createrepo .
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" /var/www/html/cm7/7.2.4/redhat7/yum/cloudera-manager.repo
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.2.4/redhat7/yum/cloudera-manager-trial.repo
