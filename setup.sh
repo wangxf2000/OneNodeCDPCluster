@@ -68,13 +68,13 @@ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 echo "-- Install CM and MariaDB"
 
 ## CM 7
-wget https://archive.cloudera.com/cm7/7.2.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cm7/7.3.1/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
 
 ## MariaDB 10.1
 cat - >/etc/yum.repos.d/MariaDB.repo <<EOF
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.1/centos7-amd64
+baseurl = http://yum.mariadb.org/10.2/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
@@ -125,19 +125,19 @@ echo "-- Prepare CM database 'scm'"
 
 ## PostgreSQL see: https://www.postgresql.org/download/linux/redhat/
 yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-yum install -y postgresql96
-yum install -y postgresql96-server
+yum install -y postgresql12
+yum install -y postgresql12-server
 pip install psycopg2==2.7.5 --ignore-installed
 
 echo 'LC_ALL="en_US.UTF-8"' >> /etc/locale.conf
 /usr/pgsql-9.6/bin/postgresql96-setup initdb
 
-cat conf/pg_hba.conf > /var/lib/pgsql/9.6/data/pg_hba.conf
-cat conf/postgresql.conf > /var/lib/pgsql/9.6/data/postgresql.conf
+cat conf/pg_hba.conf > /var/lib/pgsql/12/data/pg_hba.conf
+cat conf/postgresql.conf > /var/lib/pgsql/12/data/postgresql.conf
 
 echo "--Enable and start pgsql"
-systemctl enable postgresql-9.6
-systemctl start postgresql-9.6
+systemctl enable postgresql-12
+systemctl start postgresql-12
 
 echo "-- Create DBs required by CM"
 sudo -u postgres psql <<EOF 
