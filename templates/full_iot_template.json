@@ -1,6 +1,6 @@
 {
-    "cdhVersion": "7.1.5.0", 
-    "cmVersion": "7.2.4", 
+    "cdhVersion": "7.1.6.0", 
+    "cmVersion": "7.3.1", 
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
         {
@@ -163,7 +163,7 @@
         }, 
         {
             "product": "CDH", 
-            "version": "7.1.5-1.cdh7.1.5.p0.7431829"
+            "version": "7.1.6-1.cdh7.1.6.p0.10506313"
         }, 
         {
             "product": "CFM", 
@@ -179,7 +179,7 @@
         }
     ], 
     "repositories": [
-        "https://archive.cloudera.com/cdh7/7.1.5.0/parcels/", 
+        "https://archive.cloudera.com/cdh7/7.1.6.0/parcels/", 
         "https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/", 
         "https://archive.cloudera.com/p/cdsw1/1.9.1/parcels/", 
         "https://repo.continuum.io/pkgs/misc/parcels/archive/", 
