@@ -195,16 +195,15 @@
         }, 
         {
             "product": "Anaconda", 
-            "version": "5.1.10.1"
+            "version": "5.1.0.1"
         }
     ], 
     "repositories": [
-        "http://10.0.0.31/cdh7/7.1.6.0/parcels/", 
-        "http://10.0.0.31/csa/1.2.0.0/parcels/", 
-        "http://10.0.0.31/CFM/2.x/redhat7/yum/tars/parcel/", 
-        "http://10.0.0.31/cdsw1/1.9.1/parcels/", 
-        "http://10.0.0.31/pkgs/misc/parcels/archive/", 
-        "https://archive.cloudera.com/cdh5/parcels/5.16/"
+        "https://archive.cloudera.com/p/cdh7/7.1.6.0/parcels/", 
+        "https://archive.cloudera.com/p/csa/1.2.0.0/parcels/", 
+        "https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/", 
+        "https://archive.cloudera.com/p/cdsw1/1.9.1/parcels/", 
+        "https://repo.anaconda.com/pkgs/misc/parcels/archive/"
     ], 
     "services": [
         {
