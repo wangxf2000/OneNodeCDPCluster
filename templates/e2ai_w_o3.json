@@ -1,6 +1,6 @@
 {
-    "cdhVersion": "7.1.4.0",
-    "cmVersion": "7.1.4",
+    "cdhVersion": "7.1.6.0", 
+    "cmVersion": "7.3.1", 
     "displayName": "SingleNodeCluster",
     "hostTemplates": [
       {
@@ -146,28 +146,28 @@
     },
     "products": [
       {
-        "product": "CFM",
-        "version": "1.0.1.0"
-      },
-      {
-        "product": "CDH",
-        "version": "7.1.4-1.cdh7.1.4.p0.6300266"
-      },
-      {
-        "product": "Anaconda",
-        "version": "5.1.0.1"
-      },
-      {
-        "product": "CDSW",
-        "version": "1.6.1.p1.1504243"
-      }
-    ],
+            "product": "CDSW", 
+            "version": "1.9.1.p1.10118148"
+        }, 
+        {
+            "product": "CDH", 
+            "version": "7.1.6-1.cdh7.1.6.p0.10506313"
+        }, 
+        {
+            "product": "CFM", 
+            "version": "2.0.4.0-80"
+        }, 
+        {
+            "product": "Anaconda", 
+            "version": "5.1.0.1"
+        }
+    ], 
     "repositories": [
-      "https://archive.cloudera.com/cdh7/7.0/parcels/",
-      "https://archive.cloudera.com/CFM/parcels/1.0.1.0/",
-      "https://archive.cloudera.com/cdsw1/1.6.1/parcels/",
-      "https://repo.continuum.io/pkgs/misc/parcels/archive/"
-    ],
+        "https://archive.cloudera.com/p/cdh7/7.1.6.0/parcels/", 
+        "https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/", 
+        "https://archive.cloudera.com/p/cdsw1/1.9.1/parcels/", 
+        "https://repo.anaconda.com/pkgs/misc/parcels/archive/"
+    ], 
     "services": [
       {
         "refName": "zookeeper",
