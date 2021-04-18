@@ -14,6 +14,9 @@ yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools b
 yum install -y epel-release
 yum install -y python-pip
 pip install --upgrade pip==19.3
+sudo yum -y install python3-pip
+mkdir -p /usr/share/python3
+sudo pip3 install mysql-connector-python==8.0.23 -t /usr/share/python3
 
 cp /usr/lib/systemd/system/rngd.service /etc/systemd/system/
 systemctl daemon-reload
