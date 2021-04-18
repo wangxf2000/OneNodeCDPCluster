@@ -1,5 +1,5 @@
 {
-    "cdhVersion": "7.1.6.0", 
+    "cdhVersion": "7.1.6", 
     "cmVersion": "7.3.1", 
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
@@ -27,6 +27,7 @@
                 "kudu-KUDU_MASTER-BASE", 
                 "kudu-KUDU_TSERVER-BASE", 
                 "livy-LIVY_SERVER-BASE", 
+                "nifi-GATEWAY-BASE", 
                 "nifi-NIFI_NODE-BASE", 
                 "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
                 "oozie-OOZIE_SERVER-BASE", 
@@ -62,6 +63,7 @@
                 "hostTemplateRefName": "HostTemplate-0-from-YourHostname"
             }
         ], 
+        "lenient": false, 
         "roleConfigGroups": [
             {
                 "name": "", 
@@ -144,7 +146,7 @@
             {
                 "name": "ranger-ranger_database_type", 
                 "value": "mysql"
-            },
+            }, 
             {
                 "name": "ranger-ranger_database_user", 
                 "value": "ranger"
@@ -178,16 +180,8 @@
                 "value": "registry"
             }, 
             {
-                "name": "streams_messaging_manager-smm_database_host", 
-                "value": "YourHostname"
-            }, 
-            {
-                "name": "streams_messaging_manager-smm_database_password", 
-                "value": "cloudera"
-            }
-            {
                 "name": "sql_stream_builder-MATERIALIZED_VIEW_ENGINE-BASE-ssb.mve.datasource.password", 
-                "value": "cloudera"
+                "value": "BadPass#1"
             }, 
             {
                 "name": "sql_stream_builder-database_host", 
@@ -225,24 +219,24 @@
     }, 
     "products": [
         {
-            "product": "FLINK", 
-            "version": "1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198"
-        }, 
-        {
             "product": "CDSW", 
             "version": "1.9.1.p1.10118148"
-        }, 
-        {
-            "product": "CDH", 
-            "version": "7.1.6-1.cdh7.1.6.p0.10506313"
         }, 
         {
             "product": "CFM", 
             "version": "2.0.4.0-80"
         }, 
         {
+            "product": "FLINK", 
+            "version": "1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198"
+        }, 
+        {
             "product": "Anaconda", 
             "version": "5.1.0.1"
+        }, 
+        {
+            "product": "CDH", 
+            "version": "7.1.6-1.cdh7.1.6.p0.10506313"
         }
     ], 
     "repositories": [
@@ -280,17 +274,6 @@
             "serviceType": "HIVE"
         }, 
         {
-            "refName": "zookeeper", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "zookeeper-SERVER-BASE", 
-                    "roleType": "SERVER"
-                }
-            ], 
-            "serviceType": "ZOOKEEPER"
-        }, 
-        {
             "refName": "atlas", 
             "roleConfigGroups": [
                 {
@@ -323,35 +306,6 @@
             "serviceType": "HIVE_ON_TEZ"
         }, 
         {
-            "refName": "oozie", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "oozie_database_user", 
-                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
-                        }, 
-                        {
-                            "name": "oozie_database_host", 
-                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
-                        }, 
-                        {
-                            "name": "oozie_database_type", 
-                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
-                        }, 
-                        {
-                            "name": "oozie_database_password", 
-                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
-                        }
-                    ], 
-                    "refName": "oozie-OOZIE_SERVER-BASE", 
-                    "roleType": "OOZIE_SERVER"
-                }
-            ], 
-            "serviceType": "OOZIE"
-        }, 
-        {
             "refName": "ranger", 
             "roleConfigGroups": [
                 {
@@ -361,20 +315,20 @@
                 }, 
                 {
                     "base": true, 
-                    "refName": "ranger-RANGER_TAGSYNC-BASE", 
-                    "roleType": "RANGER_TAGSYNC"
+                    "refName": "ranger-RANGER_ADMIN-BASE", 
+                    "roleType": "RANGER_ADMIN"
                 }, 
                 {
                     "base": true, 
-                    "refName": "ranger-RANGER_ADMIN-BASE", 
-                    "roleType": "RANGER_ADMIN"
+                    "refName": "ranger-RANGER_TAGSYNC-BASE", 
+                    "roleType": "RANGER_TAGSYNC"
                 }
             ], 
             "serviceConfigs": [
                 {
                     "name": "ranger_database_port", 
                     "variable": "ranger-ranger_database_port"
-                },
+                }, 
                 {
                     "name": "ranger_database_password", 
                     "variable": "ranger-ranger_database_password"
@@ -411,6 +365,220 @@
             "serviceType": "RANGER"
         }, 
         {
+            "refName": "kudu", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "fs_wal_dir", 
+                            "variable": "kudu-KUDU_MASTER-BASE-fs_wal_dir"
+                        }, 
+                        {
+                            "name": "fs_data_dirs", 
+                            "variable": "kudu-KUDU_MASTER-BASE-fs_data_dirs"
+                        }
+                    ], 
+                    "refName": "kudu-KUDU_MASTER-BASE", 
+                    "roleType": "KUDU_MASTER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "fs_wal_dir", 
+                            "variable": "kudu-KUDU_TSERVER-BASE-fs_wal_dir"
+                        }, 
+                        {
+                            "name": "fs_data_dirs", 
+                            "variable": "kudu-KUDU_TSERVER-BASE-fs_data_dirs"
+                        }
+                    ], 
+                    "refName": "kudu-KUDU_TSERVER-BASE", 
+                    "roleType": "KUDU_TSERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "ranger"
+                }
+            ], 
+            "serviceType": "KUDU"
+        }, 
+        {
+            "refName": "spark_on_yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "process_auto_restart", 
+                            "value": "true"
+                        }
+                    ], 
+                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "SPARK_ON_YARN"
+        }, 
+        {
+            "refName": "solr", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "solr-SOLR_SERVER-BASE", 
+                    "roleType": "SOLR_SERVER"
+                }
+            ], 
+            "serviceType": "SOLR"
+        }, 
+        {
+            "refName": "schemaregistry", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
+                    "roleType": "SCHEMA_REGISTRY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "ranger_service", 
+                    "ref": "ranger"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "database_host", 
+                    "variable": "schemaregistry-database_host"
+                }, 
+                {
+                    "name": "database_password", 
+                    "variable": "schemaregistry-database_password"
+                }, 
+                {
+                    "name": "database_name", 
+                    "variable": "schemaregistry-database_name"
+                }, 
+                {
+                    "name": "database_user", 
+                    "variable": "schemaregistry-database_user"
+                }
+            ], 
+            "serviceType": "SCHEMAREGISTRY"
+        }, 
+        {
+            "refName": "streams_messaging_manager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_UI"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
+                    "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "smm_database_password", 
+                    "variable": "streams_messaging_manager-smm_database_password"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "ranger_service", 
+                    "ref": "ranger"
+                }, 
+                {
+                    "name": "kafka_service", 
+                    "ref": "kafka"
+                }, 
+                {
+                    "name": "schemaregistry_service", 
+                    "ref": "schemaregistry"
+                }, 
+                {
+                    "name": "smm_database_host", 
+                    "variable": "streams_messaging_manager-smm_database_host"
+                }
+            ], 
+            "serviceType": "STREAMS_MESSAGING_MANAGER"
+        }, 
+        {
+            "refName": "hbase", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hbase-REGIONSERVER-BASE", 
+                    "roleType": "REGIONSERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hbase-MASTER-BASE", 
+                    "roleType": "MASTER"
+                }
+            ], 
+            "serviceType": "HBASE"
+        }, 
+        {
+            "refName": "zookeeper", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zookeeper-SERVER-BASE", 
+                    "roleType": "SERVER"
+                }
+            ], 
+            "serviceType": "ZOOKEEPER"
+        }, 
+        {
+            "refName": "oozie", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "oozie_database_user", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_user"
+                        }, 
+                        {
+                            "name": "oozie_database_host", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_host"
+                        }, 
+                        {
+                            "name": "oozie_database_type", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_type"
+                        }, 
+                        {
+                            "name": "oozie_database_password", 
+                            "variable": "oozie-OOZIE_SERVER-BASE-oozie_database_password"
+                        }
+                    ], 
+                    "refName": "oozie-OOZIE_SERVER-BASE", 
+                    "roleType": "OOZIE_SERVER"
+                }
+            ], 
+            "serviceType": "OOZIE"
+        }, 
+        {
             "refName": "tez", 
             "roleConfigGroups": [
                 {
@@ -433,10 +601,77 @@
             "serviceType": "ZEPPELIN"
         }, 
         {
+            "refName": "cdsw", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_APPLICATION-BASE", 
+                    "roleType": "CDSW_APPLICATION"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_MASTER-BASE", 
+                    "roleType": "CDSW_MASTER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "cdsw.docker.devices.config", 
+                            "value": "/dev/nvme1n1"
+                        }
+                    ], 
+                    "refName": "cdsw-CDSW_DOCKER-BASE", 
+                    "roleType": "CDSW_DOCKER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hive_service", 
+                    "ref": "hive"
+                }, 
+                {
+                    "name": "spark_on_yarn_service", 
+                    "ref": "spark_on_yarn"
+                }, 
+                {
+                    "name": "cdsw.domain.config", 
+                    "value": "YourCDSWDomain"
+                }, 
+                {
+                    "name": "yarn_service", 
+                    "ref": "yarn"
+                }, 
+                {
+                    "name": "solr_service", 
+                    "ref": "solr"
+                }, 
+                {
+                    "name": "hbase_service", 
+                    "ref": "hbase"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "cdsw.master.ip.config", 
+                    "value": "YourPrivateIP"
+                }
+            ], 
+            "serviceType": "CDSW"
+        }, 
+        {
             "refName": "livy", 
             "roleConfigGroups": [
                 {
                     "base": true, 
+                    "configs": [
+                        {
+                            "name": "process_auto_restart", 
+                            "value": "true"
+                        }
+                    ], 
                     "refName": "livy-LIVY_SERVER-BASE", 
                     "roleType": "LIVY_SERVER"
                 }
@@ -444,31 +679,51 @@
             "serviceType": "LIVY"
         }, 
         {
-            "refName": "spark_on_yarn", 
+            "refName": "phoenix", 
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
-                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                    "refName": "phoenix-PHOENIX_QUERY_SERVER-BASE", 
+                    "roleType": "PHOENIX_QUERY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hbase_service", 
+                    "ref": "hbase"
+                }
+            ], 
+            "serviceType": "PHOENIX"
+        }, 
+        {
+            "refName": "queuemanager", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "queuemanager-QUEUEMANAGER_WEBAPP-BASE", 
+                    "roleType": "QUEUEMANAGER_WEBAPP"
                 }, 
                 {
                     "base": true, 
-                    "refName": "spark_on_yarn-GATEWAY-BASE", 
-                    "roleType": "GATEWAY"
+                    "refName": "queuemanager-QUEUEMANAGER_STORE-BASE", 
+                    "roleType": "QUEUEMANAGER_STORE"
                 }
             ], 
-            "serviceType": "SPARK_ON_YARN"
-        }, 
-        {
-            "refName": "solr", 
-            "roleConfigGroups": [
+            "serviceConfigs": [
                 {
-                    "base": true, 
-                    "refName": "solr-SOLR_SERVER-BASE", 
-                    "roleType": "SOLR_SERVER"
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
                 }
             ], 
-            "serviceType": "SOLR"
+            "serviceType": "QUEUEMANAGER"
         }, 
         {
             "refName": "kafka", 
@@ -553,6 +808,10 @@
                     "value": "1"
                 }, 
                 {
+                    "name": "service_config_suppression_datanode_count_validator", 
+                    "value": "true"
+                }, 
+                {
                     "name": "hdfs_under_replicated_blocks_thresholds", 
                     "value": "{\"warning\":\"never\",\"critical\":\"never\"}"
                 }, 
@@ -578,17 +837,6 @@
                     "base": true, 
                     "configs": [
                         {
-                            "name": "yarn_scheduler_maximum_allocation_mb", 
-                            "value": "6144"
-                        }
-                    ], 
-                    "refName": "yarn-RESOURCEMANAGER-BASE", 
-                    "roleType": "RESOURCEMANAGER"
-                }, 
-                {
-                    "base": true, 
-                    "configs": [
-                        {
                             "name": "yarn_nodemanager_resource_memory_mb", 
                             "value": "6144"
                         }
@@ -600,6 +848,17 @@
                     "base": true, 
                     "refName": "yarn-JOBHISTORY-BASE", 
                     "roleType": "JOBHISTORY"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "yarn_scheduler_maximum_allocation_mb", 
+                            "value": "6144"
+                        }
+                    ], 
+                    "refName": "yarn-RESOURCEMANAGER-BASE", 
+                    "roleType": "RESOURCEMANAGER"
                 }
             ], 
             "serviceConfigs": [
@@ -611,168 +870,17 @@
             "serviceType": "YARN"
         }, 
         {
-            "refName": "hbase", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "hbase-REGIONSERVER-BASE", 
-                    "roleType": "REGIONSERVER"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "hbase-MASTER-BASE", 
-                    "roleType": "MASTER"
-                }
-            ], 
-            "serviceType": "HBASE"
-        }, 
-        {
-            "refName": "queuemanager", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "queuemanager-QUEUEMANAGER_STORE-BASE", 
-                    "roleType": "QUEUEMANAGER_STORE"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "queuemanager-QUEUEMANAGER_WEBAPP-BASE", 
-                    "roleType": "QUEUEMANAGER_WEBAPP"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }
-            ], 
-            "serviceType": "QUEUEMANAGER"
-        }, 
-        {
-            "refName": "schemaregistry", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "schemaregistry-SCHEMA_REGISTRY_SERVER-BASE", 
-                    "roleType": "SCHEMA_REGISTRY_SERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "ranger_service", 
-                    "ref": "ranger"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }, 
-                {
-                    "name": "database_host", 
-                    "variable": "schemaregistry-database_host"
-                }, 
-                {
-                    "name": "database_name", 
-                    "variable": "schemaregistry-database_name"
-                }, 
-                {
-                    "name": "database_password", 
-                    "variable": "schemaregistry-database_password"
-                }, 
-                {
-                    "name": "database_user", 
-                    "variable": "schemaregistry-database_user"
-                }
-            ], 
-            "serviceType": "SCHEMAREGISTRY"
-        }, 
-        {
-            "refName": "streams_messaging_manager", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_SERVER-BASE", 
-                    "roleType": "STREAMS_MESSAGING_MANAGER_SERVER"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "streams_messaging_manager-STREAMS_MESSAGING_MANAGER_UI-BASE", 
-                    "roleType": "STREAMS_MESSAGING_MANAGER_UI"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "smm_database_password", 
-                    "variable": "streams_messaging_manager-smm_database_password"
-                }, 
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "ranger"
-                }, 
-                {
-                    "name": "kafka_service", 
-                    "ref": "kafka"
-                }, 
-                {
-                    "name": "schemaregistry_service", 
-                    "ref": "schemaregistry"
-                }, 
-                {
-                    "name": "smm_database_host", 
-                    "variable": "streams_messaging_manager-smm_database_host"
-                }
-            ], 
-            "serviceType": "STREAMS_MESSAGING_MANAGER"
-        }, 
-        {
-            "refName": "flink", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "process_auto_restart", 
-                            "value": "true"
-                        }, 
-                        {
-                            "name": "historyserver_web_port", 
-                            "value": "8083"
-                        }
-                    ], 
-                    "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
-                    "roleType": "FLINK_HISTORY_SERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "yarn_service", 
-                    "ref": "yarn"
-                }, 
-                {
-                    "name": "zookeeper_service", 
-                    "ref": "zookeeper"
-                }, 
-                {
-                    "name": "hive_service", 
-                    "ref": "hive"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }
-            ], 
-            "serviceType": "FLINK"
-        }, 
-        {
             "refName": "nifi", 
             "roleConfigGroups": [
                 {
                     "base": true, 
                     "refName": "nifi-NIFI_NODE-BASE", 
                     "roleType": "NIFI_NODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "nifi-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
                 }
             ], 
             "serviceConfigs": [
@@ -825,90 +933,39 @@
             "serviceType": "NIFIREGISTRY"
         }, 
         {
-            "refName": "phoenix", 
+            "refName": "flink", 
             "roleConfigGroups": [
                 {
                     "base": true, 
-                    "refName": "phoenix-PHOENIX_QUERY_SERVER-BASE", 
-                    "roleType": "PHOENIX_QUERY_SERVER"
+                    "configs": [
+                        {
+                            "name": "historyserver_web_port", 
+                            "value": "8083"
+                        }
+                    ], 
+                    "refName": "flink-FLINK_HISTORY_SERVER-BASE", 
+                    "roleType": "FLINK_HISTORY_SERVER"
                 }
             ], 
             "serviceConfigs": [
                 {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
+                    "name": "yarn_service", 
+                    "ref": "yarn"
                 }, 
                 {
                     "name": "zookeeper_service", 
                     "ref": "zookeeper"
                 }, 
                 {
-                    "name": "hbase_service", 
-                    "ref": "hbase"
-                }
-            ], 
-            "serviceType": "PHOENIX"
-        }, 
-        {
-            "refName": "cdsw", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "refName": "cdsw-CDSW_APPLICATION-BASE", 
-                    "roleType": "CDSW_APPLICATION"
-                }, 
-                {
-                    "base": true, 
-                    "refName": "cdsw-CDSW_MASTER-BASE", 
-                    "roleType": "CDSW_MASTER"
-                }, 
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "cdsw.docker.devices.config", 
-                            "value": "/dev/nvme1n1"
-                        }
-                    ], 
-                    "refName": "cdsw-CDSW_DOCKER-BASE", 
-                    "roleType": "CDSW_DOCKER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
                     "name": "hive_service", 
                     "ref": "hive"
                 }, 
                 {
-                    "name": "spark_on_yarn_service", 
-                    "ref": "spark_on_yarn"
-                }, 
-                {
-                    "name": "cdsw.domain.config", 
-                    "value": "YourCDSWDomain"
-                }, 
-                {
-                    "name": "yarn_service", 
-                    "ref": "yarn"
-                }, 
-                {
-                    "name": "solr_service", 
-                    "ref": "solr"
-                }, 
-                {
-                    "name": "hbase_service", 
-                    "ref": "hbase"
-                }, 
-                {
                     "name": "hdfs_service", 
                     "ref": "hdfs"
-                }, 
-                {
-                    "name": "cdsw.master.ip.config", 
-                    "value": "YourPrivateIP"
                 }
             ], 
-            "serviceType": "CDSW"
+            "serviceType": "FLINK"
         }, 
         {
             "refName": "sql_stream_builder", 
@@ -974,52 +1031,6 @@
                 }
             ], 
             "serviceType": "SQL_STREAM_BUILDER"
-        },
-        {
-            "refName": "kudu", 
-            "roleConfigGroups": [
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "fs_wal_dir", 
-                            "variable": "kudu-KUDU_MASTER-BASE-fs_wal_dir"
-                        }, 
-                        {
-                            "name": "fs_data_dirs", 
-                            "variable": "kudu-KUDU_MASTER-BASE-fs_data_dirs"
-                        }
-                    ], 
-                    "refName": "kudu-KUDU_MASTER-BASE", 
-                    "roleType": "KUDU_MASTER"
-                }, 
-                {
-                    "base": true, 
-                    "configs": [
-                        {
-                            "name": "fs_wal_dir", 
-                            "variable": "kudu-KUDU_TSERVER-BASE-fs_wal_dir"
-                        }, 
-                        {
-                            "name": "fs_data_dirs", 
-                            "variable": "kudu-KUDU_TSERVER-BASE-fs_data_dirs"
-                        }
-                    ], 
-                    "refName": "kudu-KUDU_TSERVER-BASE", 
-                    "roleType": "KUDU_TSERVER"
-                }
-            ], 
-            "serviceConfigs": [
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
-                }, 
-                {
-                    "name": "ranger_service", 
-                    "ref": "ranger"
-                }
-            ], 
-            "serviceType": "KUDU"
         }
     ]
 }
