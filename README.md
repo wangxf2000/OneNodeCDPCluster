@@ -67,7 +67,7 @@ To install NIFI, you must use an appropriate template file, like `all.json`.
 
 ```
 sudo su -
-yum install -y git
+yum install -y git unzip
 git clone https://github.com/wangxf2000/OneNodeCDPCluster.git
 cd OneNodeCDPCluster
 ```
@@ -76,7 +76,7 @@ cd OneNodeCDPCluster
 if you use your local repository, you need to do the following first
 ```
 #install the tools 
-yum -y install httpd git createrepo unzip
+yum -y install httpd createrepo 
 sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .tgz .parcel/' /etc/httpd/conf/httpd.conf
 
 #create the local repository directory
@@ -147,19 +147,17 @@ sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7
 ### if your repository is the same as your Edge2AI Server, you can use the following replace statement.
 ### otherwise, update the statement with your own IP address
 ### modify the repository in setup.sh, scripts/create_cluster.py ,templates/*json files
-sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup.sh
-sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup_krb.sh
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup_krb.sh
-sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup_krb.sh
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
 sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster.py
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
 
 
 systemctl enable httpd
