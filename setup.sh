@@ -139,7 +139,7 @@ yum install -y postgresql12-server
 pip install psycopg2==2.7.5 --ignore-installed
 
 echo 'LC_ALL="en_US.UTF-8"' >> /etc/locale.conf
-/usr/pgsql-9.6/bin/postgresql96-setup initdb
+/usr/pgsql-12/bin/postgresql96-setup initdb
 
 cat conf/pg_hba.conf > /var/lib/pgsql/12/data/pg_hba.conf
 cat conf/postgresql.conf > /var/lib/pgsql/12/data/postgresql.conf
