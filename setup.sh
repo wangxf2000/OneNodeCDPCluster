@@ -139,7 +139,7 @@ yum install -y postgresql12-server
 pip install psycopg2==2.7.5 --ignore-installed
 
 echo 'LC_ALL="en_US.UTF-8"' >> /etc/locale.conf
-/usr/pgsql-12/bin/postgresql96-setup initdb
+/usr/pgsql-12/bin/postgresql-12-setup initdb
 
 cat conf/pg_hba.conf > /var/lib/pgsql/12/data/pg_hba.conf
 cat conf/postgresql.conf > /var/lib/pgsql/12/data/postgresql.conf
@@ -156,7 +156,18 @@ GRANT ALL PRIVILEGES ON DATABASE ranger TO ranger;
 CREATE DATABASE das;
 CREATE USER das WITH PASSWORD 'cloudera';
 GRANT ALL PRIVILEGES ON DATABASE das TO das;
+CREATE ROLE ssb_admin LOGIN PASSWORD 'cloudera';
+CREATE DATABASE ssb_admin OWNER ssb_admin ENCODING 'UTF8';
+CREATE ROLE ssb_mve LOGIN PASSWORD 'cloudera';
+CREATE DATABASE ssb_mve OWNER ssb_mve ENCODING 'UTF8';
 EOF
+
+wget https://jdbc.postgresql.org/download/postgresql-42.2.23.jar
+mv postgresql-42.2.23.jar postgresql-connector-java.jar
+cp postgresql-connector-java.jar /usr/share/java
+yum install -y python3-pip
+mkdir -p /usr/share/python3
+pip3 install psycopg2-binary==2.8.5 -t /usr/share/python3
 
 
 echo "-- Install CSDs"
