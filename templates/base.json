@@ -286,6 +286,14 @@
                 {
                     "name": "ranger_database_user", 
                     "variable": "ranger-ranger_database_user"
+                }, 
+                {
+                    "name": "ranger_database_type", 
+                    "variable": "MySQL"
+                }, 
+                {
+                    "name": "ranger_database_port", 
+                    "variable": "3306"
                 }
             ], 
             "serviceType": "RANGER"
