@@ -87,7 +87,7 @@ mkdir -p /var/www/html/cdsw1/1.9.2/parcels/
 mkdir -p /var/www/html/CEM/centos7/1.x/updates/1.2.0.0/
 mkdir -p /var/www/html/get/Downloads/Connector-J/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
-mkdir -p /var/www/html/CFM/centos7/2.x/updates/2.0.4.0/tars/parcel/
+mkdir -p  /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
 mkdir -p /var/www/html/csa/1.4.1.0/parcels/
 mkdir -p /var/www/html/csa/1.4.1.0/csd/
@@ -120,11 +120,12 @@ wget https://username:password@archive.cloudera.com/p/cdsw1/1.9.2/parcels/manife
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.9.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.2.jar -P /var/www/html/cdsw1/1.9.2/csd/
 
 #CFM
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/manifest.json   -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel   -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/CFM-2.0.4.0-80-el7.parcel.sha  -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
-wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
+wget https://username:password@archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/CFM-2.1.1.0-13-el7.parcel.sha -P /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
+wget https://username:password@archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/CFM-2.1.1.0-13-el7.parcel -P /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
+wget https://username:password@archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/manifest.json -P /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
+wget https://username:password@archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/NIFI-1.13.2.2.1.1.0-13.jar  -P /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
+wget https://username:password@archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/NIFIREGISTRY-0.8.0.2.1.1.0-13.jar -P /var/www/html/cfm2/2.1.1.0/redhat7/yum/tars/parcel/
+
 
 #CSA
 wget https://username:password@archive.cloudera.com/p/csa/1.4.1.0/parcels/FLINK-1.12-csa1.4.1.0-cdh7.1.6.0-297-15479260-el7.parcel -P /var/www/html/csa/1.4.1.0/parcels/
