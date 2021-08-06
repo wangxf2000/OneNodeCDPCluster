@@ -71,7 +71,7 @@ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 echo "-- Install CM and MariaDB"
 
 ## CM 7
-wget https://archive.cloudera.com/cm7/7.3.1/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cm7/7.4.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
 
 ## MariaDB 10.1
 cat - >/etc/yum.repos.d/MariaDB.repo <<EOF
@@ -173,9 +173,9 @@ pip3 install psycopg2-binary==2.8.5 -t /usr/share/python3
 echo "-- Install CSDs"
 wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFIREGISTRY-0.6.0.2.0.4.0-80.jar  -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/csa/1.3.0.0/csd/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar  -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/csa/1.3.0.0/csd/SQL_STREAM_BUILDER-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar   -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/cdsw1/1.9.1/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.1.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.4.1.0/csd/FLINK-1.12-csa1.4.1.0-cdh7.1.6.0-297-15479260.jar  -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.4.1.0/csd/SQL_STREAM_BUILDER-1.12-csa1.4.1.0-cdh7.1.6.0-297-15479260.jar   -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/cdsw1/1.9.2/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.9.2.jar -P /opt/cloudera/csd/
 
 
 # install local CSDs
