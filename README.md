@@ -93,7 +93,7 @@ mkdir -p /var/www/html/csa/1.4.1.0/parcels/
 mkdir -p /var/www/html/csa/1.4.1.0/csd/
 ```
 
-### download the public repository to your local directory
+#### download the public repository to your local directory
 ```
 wget -nd -r  -l1 --no-parent https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/RPMS/x86_64/ -P /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/
 wget https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.4.4/redhat7/yum
@@ -111,7 +111,7 @@ wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/w
 rm -rf /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/index.html
 rm -rf /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/robots.txt
 ```
-### replace username and password with your license's username and password, if you need CEM,CFM, CSA and CDSW 
+#### replace username and password with your license's username and password, if you need CEM,CFM, CSA and CDSW 
 ```
 #cdsw
 wget https://username:password@archive.cloudera.com/p/cdsw1/1.9.2/parcels/CDSW-1.9.2.p1.14556745-el7.parcel -P /var/www/html/cdsw1/1.9.2/parcels/
@@ -136,13 +136,19 @@ wget https://username:password@archive.cloudera.com/p/csa/1.4.1.0/csd/SQL_STREAM
 #CEM
 wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.2.1.0/CEM-1.2.1.0-centos7-tars-tarball.tar.gz  -P /var/www/html/CEM/centos7/1.x/updates/1.2.1.0/
 ```
-### create the cm7's repo information and replace the link to your local repository
+#### create the cm7's repo information and start httpd
 ```
 cd /var/www/html/cm7/7.4.4/redhat7/yum/
 createrepo .
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" /var/www/html/cm7/7.4.4/redhat7/yum/cloudera-manager.repo
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.4.4/redhat7/yum/cloudera-manager-trial.repo
 
+systemctl enable httpd
+systemctl start httpd
+```
+#### Replace the link to your local repository
+#### if the CDP cluster host is the same as the local repo ,using the following commond to replace,otherwise using local repo address replace of `hostname -f`
+```
 ### replace cloudera repository to your own repository 
 ### if your repository is the same as your Edge2AI Server, you can use the following replace statement.
 ### otherwise, update the statement with your own IP address
@@ -159,9 +165,6 @@ sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDPCluster/
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
 
-
-systemctl enable httpd
-systemctl start httpd
 
 ```
 ### deploy cluster
