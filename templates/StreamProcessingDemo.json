@@ -1,6 +1,6 @@
 {
-    "cdhVersion": "7.0.3", 
-    "cmVersion": "7.0.3", 
+    "cdhVersion": "7.1.7.0", 
+    "cmVersion": "7.4.4", 
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
         {
@@ -128,28 +128,12 @@
     }, 
     "products": [
         {
-            "product": "SCHEMAREGISTRY", 
-            "version": "0.8.0.2.0.1.0-29"
-        }, 
-        {
             "product": "CDH", 
-            "version": "7.0.3-1.cdh7.0.3.p0.1635019"
-        }, 
-        {
-            "product": "PHOENIX", 
-            "version": "5.0.0-cdh6.2.0.p0.1308267"
-        }, 
-        {
-            "product": "STREAMS_REPLICATION_MANAGER", 
-            "version": "1.0.0.2.0.1.0-29"
-        }, 
-        {
-            "product": "STREAMS_MESSAGING_MANAGER", 
-            "version": "2.1.0.2.0.1.0-29"
+            "version": "7.1.7-1.cdh7.1.7.p0.15945976-el7"
         }
     ], 
     "repositories": [
-        "https://archive.cloudera.com/cdh7/7.0/parcels/"
+        "https://archive.cloudera.com/cdh7/7.1.7.0/parcels/"
     ], 
     "services": [
         {
