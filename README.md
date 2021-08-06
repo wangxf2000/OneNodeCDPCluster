@@ -76,7 +76,7 @@ cd OneNodeCDPCluster
 if you use your local repository, you need to do the following first
 ```
 #install the tools 
-yum -y install httpd createrepo 
+yum -y install httpd createrepo wget curl
 sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .tgz .parcel/' /etc/httpd/conf/httpd.conf
 
 #create the local repository directory
