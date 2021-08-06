@@ -67,7 +67,7 @@ To install NIFI, you must use an appropriate template file, like `all.json`.
 
 ```
 sudo su -
-yum install -y git unzip
+yum install -y git wget curl unzip
 git clone https://github.com/wangxf2000/OneNodeCDPCluster.git
 cd OneNodeCDPCluster
 ```
@@ -76,7 +76,7 @@ cd OneNodeCDPCluster
 if you use your local repository, you need to do the following first
 ```
 #install the tools 
-yum -y install httpd createrepo wget curl
+yum -y install httpd createrepo wget curl unzip
 sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .tgz .parcel/' /etc/httpd/conf/httpd.conf
 
 #create the local repository directory
