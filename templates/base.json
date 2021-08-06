@@ -1,5 +1,5 @@
 {
-    "cdhVersion": "7.1.7", 
+    "cdhVersion": "7.1.7.0", 
     "cmVersion": "7.4.4", 
     "displayName": "SingleNodeCluster", 
     "hostTemplates": [
