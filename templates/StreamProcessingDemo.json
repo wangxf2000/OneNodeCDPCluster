@@ -129,7 +129,7 @@
     "products": [
         {
             "product": "CDH", 
-            "version": "7.1.7-1.cdh7.1.7.p0.15945976-el7"
+            "version": "7.1.7-1.cdh7.1.7.p0.15945976"
         }
     ], 
     "repositories": [
