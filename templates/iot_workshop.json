@@ -199,17 +199,17 @@
         }, 
         {
             "product": "CFM", 
-            "version": "2.0.4.0-80"
+            "version": "2.1.1.0-13"
         }, 
         {
             "product": "Anaconda", 
-            "version": "5.1.0.1"
+            "version": "5.3.1"
         }
     ], 
     "repositories": [
         "https://archive.cloudera.com/p/cdh7/7.1.7.0/parcels/", 
         "https://archive.cloudera.com/p/csa/1.4.1.0/parcels/", 
-        "https://archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/", 
+        "https://archive.cloudera.com/p/cfm2/2.1.1.0/redhat7/yum/tars/parcel/", 
         "https://archive.cloudera.com/p/cdsw1/1.9.2/parcels/", 
         "https://repo.anaconda.com/pkgs/misc/parcels/archive/"
     ], 
