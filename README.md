@@ -1,6 +1,6 @@
-# Single Node CDP Data Center Cluster 
+# Single Node CDP Private Cloud Base Cluster 
 
-This script automatically sets up a CDP Data Center Trial cluster on the public cloud on a single VM with the services preconfigured in a template file.
+This script automatically sets up a CDP Private Cloud Base Trial cluster on the public cloud on a single VM with the services preconfigured in a template file.
 
 - CDSW
 - MiNiFi
@@ -80,8 +80,8 @@ yum -y install httpd createrepo
 sed -i 's/AddType application\/x-gzip .gz .tgz/AddType application\/x-gzip .gz .tgz .parcel/' /etc/httpd/conf/httpd.conf
 
 #create the local repository directory
-mkdir -p /var/www/html/cm7/7.3.1/redhat7/yum/RPMS/x86_64/
-mkdir -p /var/www/html/cdh7/7.1.6.0/parcels/
+mkdir -p /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/
+mkdir -p /var/www/html/cdh7/7.1.7.0/parcels/
 mkdir -p /var/www/html/cdsw1/1.9.1/csd/
 mkdir -p /var/www/html/cdsw1/1.9.1/parcels/
 mkdir -p /var/www/html/CEM/centos7/1.x/updates/1.2.0.0/
@@ -89,27 +89,27 @@ mkdir -p /var/www/html/get/Downloads/Connector-J/
 mkdir -p /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
 mkdir -p /var/www/html/CFM/centos7/2.x/updates/2.0.4.0/tars/parcel/
 mkdir -p /var/www/html/pkgs/misc/parcels/archive/
-mkdir -p /var/www/html/csa/1.3.0.0/parcels/
-mkdir -p /var/www/html/csa/1.3.0.0/csd/
+mkdir -p /var/www/html/csa/1.4.0.0/parcels/
+mkdir -p /var/www/html/csa/1.4.0.0/csd/
 ```
 
 ### download the public repository to your local directory
 ```
-wget -nd -r  -l1 --no-parent https://username:password@archive.cloudera.com/p/cm7/7.3.1/redhat7/yum/RPMS/x86_64/ -P /var/www/html/cm7/7.3.1/redhat7/yum/RPMS/x86_64/
-wget https://username:password@archive.cloudera.com/p/cm7/7.3.1/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.3.1/redhat7/yum
-wget https://username:password@archive.cloudera.com/p/cm7/7.3.1/redhat7/yum/cloudera-manager-trial.repo -P /var/www/html/cm7/7.3.1/redhat7/yum
-wget https://username:password@archive.cloudera.com/p/cm7/7.3.1/redhat7/yum/cloudera-manager.repo -P /var/www/html/cm7/7.3.1/redhat7/yum
-wget https://username:password@archive.cloudera.com/p/cm7/7.3.1/allkeys.asc -P /var/www/html/cm7/7.3.1
-wget https://username:password@archive.cloudera.com/p/cdh7/7.1.6.0/parcels/CDH-7.1.6-1.cdh7.1.6.p0.10506313-el7.parcel -P /var/www/html/cdh7/7.1.6.0/parcels/
-wget https://username:password@archive.cloudera.com/p/cdh7/7.1.6.0/parcels/CDH-7.1.6-1.cdh7.1.6.p0.10506313-el7.parcel.sha256 -P /var/www/html/cdh7/7.1.6.0/parcels/
-wget https://username:password@archive.cloudera.com/p/cdh7/7.1.6.0/parcels/manifest.json -P /var/www/html/cdh7/7.1.6.0/parcels/
+wget -nd -r  -l1 --no-parent https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/RPMS/x86_64/ -P /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/
+wget https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/RPM-GPG-KEY-cloudera -P /var/www/html/cm7/7.4.4/redhat7/yum
+wget https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/cloudera-manager-trial.repo -P /var/www/html/cm7/7.4.4/redhat7/yum
+wget https://username:password@archive.cloudera.com/p/cm7/7.4.4/redhat7/yum/cloudera-manager.repo -P /var/www/html/cm7/7.4.4/redhat7/yum
+wget https://username:password@archive.cloudera.com/p/cm7/7.4.4/allkeys.asc -P /var/www/html/cm7/7.4.4
+wget https://username:password@archive.cloudera.com/p/cdh7/7.1.7.0/parcels/CDH-7.1.7-1.cdh7.1.7.p0.15945976-el7.parcel -P /var/www/html/cdh7/7.1.7.0/parcels/
+wget https://username:password@archive.cloudera.com/p/cdh7/7.1.7.0/parcels/CDH-7.1.7-1.cdh7.1.7.p0.15945976-el7.parcel.sha256 -P /var/www/html/cdh7/7.1.7.0/parcels/
+wget https://username:password@archive.cloudera.com/p/cdh7/7.1.7.0/parcels/manifest.json -P /var/www/html/cdh7/7.1.7.0/parcels/
 wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz -P /var/www/html/get/Downloads/Connector-J/
 wget http://central.maven.org/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/nifi-mqtt-nar-1.8.0.nar -P /var/www/html/maven2/org/apache/nifi/nifi-mqtt-nar/1.8.0/
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.1.0.1-el7.parcel  -P /var/www/html/pkgs/misc/parcels/archive/
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/Anaconda-5.1.0.1-el7.parcel.sha -P /var/www/html/pkgs/misc/parcels/archive/
 wget https://repo.continuum.io/pkgs/misc/parcels/archive/manifest.json -P /var/www/html/pkgs/misc/parcels/archive/
-rm -rf /var/www/html/cm7/7.3.1/redhat7/yum/RPMS/x86_64/index.html
-rm -rf /var/www/html/cm7/7.3.1/redhat7/yum/RPMS/x86_64/robots.txt
+rm -rf /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/index.html
+rm -rf /var/www/html/cm7/7.4.4/redhat7/yum/RPMS/x86_64/robots.txt
 ```
 ### replace username and password with your license's username and password, if you need CEM,CFM, CSA and CDSW 
 ```
@@ -127,21 +127,21 @@ wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/p
 wget https://username:password@archive.cloudera.com/p/CFM/2.x/redhat7/yum/tars/parcel/NIFI-1.11.4.2.0.4.0-80.jar  -P /var/www/html/CFM/2.x/redhat7/yum/tars/parcel
 
 #CSA
-wget https://username:password@archive.cloudera.com/p/csa/1.3.0.0/parcels/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198-el7.parcel -P /var/www/html/csa/1.3.0.0/parcels/
-wget https://username:password@archive.cloudera.com/p/csa/1.3.0.0/parcels/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198-el7.parcel.sha -P /var/www/html/csa/1.3.0.0/parcels/
-wget https://username:password@archive.cloudera.com/p/csa/1.3.0.0/parcels/manifest.json -P /var/www/html/csa/1.3.0.0/parcels/
-wget https://username:password@archive.cloudera.com/p/csa/1.3.0.0/csd/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar -P /var/www/html/csa/1.3.0.0/csd/
-wget https://username:password@archive.cloudera.com/p/csa/1.3.0.0/csd/SQL_STREAM_BUILDER-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar -P /var/www/html/csa/1.3.0.0/csd/
+wget https://username:password@archive.cloudera.com/p/csa/1.4.0.0/parcels/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198-el7.parcel -P /var/www/html/csa/1.4.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.4.0.0/parcels/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198-el7.parcel.sha -P /var/www/html/csa/1.4.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.4.0.0/parcels/manifest.json -P /var/www/html/csa/1.4.0.0/parcels/
+wget https://username:password@archive.cloudera.com/p/csa/1.4.0.0/csd/FLINK-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar -P /var/www/html/csa/1.4.0.0/csd/
+wget https://username:password@archive.cloudera.com/p/csa/1.4.0.0/csd/SQL_STREAM_BUILDER-1.12-csa1.3.0.0-cdh7.1.6.0-297-11607198.jar -P /var/www/html/csa/1.4.0.0/csd/
 
 #CEM
 wget https://username:password@archive.cloudera.com/p/CEM/centos7/1.x/updates/1.2.1.0/CEM-1.2.1.0-centos7-tars-tarball.tar.gz  -P /var/www/html/CEM/centos7/1.x/updates/1.2.1.0/
 ```
 ### create the cm7's repo information and replace the link to your local repository
 ```
-cd /var/www/html/cm7/7.3.1/redhat7/yum/
+cd /var/www/html/cm7/7.4.4/redhat7/yum/
 createrepo .
-sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" /var/www/html/cm7/7.3.1/redhat7/yum/cloudera-manager.repo
-sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.3.1/redhat7/yum/cloudera-manager-trial.repo
+sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" /var/www/html/cm7/7.4.4/redhat7/yum/cloudera-manager.repo
+sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" /var/www/html/cm7/7.4.4/redhat7/yum/cloudera-manager-trial.repo
 
 ### replace cloudera repository to your own repository 
 ### if your repository is the same as your Edge2AI Server, you can use the following replace statement.
