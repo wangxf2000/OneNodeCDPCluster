@@ -118,7 +118,15 @@
             {
                 "name": "ranger-rangertagsync_user_password", 
                 "value": "BadPass#1"
+            },
+             {
+                "name": "ranger-ranger_database_port", 
+                "value": "3306"
             }, 
+            {
+                "name": "ranger-ranger_database_type", 
+                "value": "mysql"
+            },
             {
                 "name": "ranger-rangerusersync_user_password", 
                 "value": "BadPass#1"
@@ -289,11 +297,11 @@
                 }, 
                 {
                     "name": "ranger_database_type", 
-                    "variable": "mysql"
+                    "variable": "ranger-ranger_database_type"
                 }, 
                 {
                     "name": "ranger_database_port", 
-                    "variable": "3306"
+                    "variable": "ranger-ranger_database_port"
                 }
             ], 
             "serviceType": "RANGER"
