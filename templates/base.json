@@ -113,7 +113,7 @@
             }, 
             {
                 "name": "ranger-rangeradmin_user_password", 
-                "value": "cloudera"
+                "value": "BadPass#1"
             }, 
             {
                 "name": "ranger-rangertagsync_user_password", 
