@@ -120,17 +120,6 @@ mysql -u root < scripts/secure_mariadb.sql
 echo "-- Prepare CM database 'scm'"
 /opt/cloudera/cm/schema/scm_prepare_database.sh mysql scm scm cloudera
 
-## PostgreSQL
-#yum install -y postgresql-server python-pip
-#pip install psycopg2==2.7.5 --ignore-installed
-#echo 'LC_ALL="en_US.UTF-8"' >> /etc/locale.conf
-#sudo su -l postgres -c "postgresql-setup initdb"
-#cat conf/pg_hba.conf > /var/lib/pgsql/data/pg_hba.conf
-#cat conf/postgresql.conf > /var/lib/pgsql/data/postgresql.conf
-#echo "--Enable and start pgsql"
-#systemctl enable postgresql
-#systemctl restart postgresql
-
 
 ## PostgreSQL see: https://www.postgresql.org/download/linux/redhat/
 yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
