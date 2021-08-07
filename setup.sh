@@ -12,7 +12,7 @@ timedatectl set-timezone UTC
 echo "-- Install Java OpenJDK8 and other tools"
 yum install -y java-1.8.0-openjdk-devel vim wget curl git bind-utils rng-tools bind bind-chroot
 yum install -y epel-release
-yum install -y python-pip
+yum install -y python-pip iproute
 pip install --upgrade pip==19.3
 sudo yum -y install python3-pip
 mkdir -p /usr/share/python3
