@@ -740,10 +740,6 @@
                 {
                     "name": "zookeeper_service", 
                     "ref": "zookeeper"
-                }, 
-                {
-                    "name": "hdfs_service", 
-                    "ref": "hdfs"
                 }
             ], 
             "serviceType": "NIFI"
