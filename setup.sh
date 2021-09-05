@@ -154,8 +154,8 @@ EOF
 wget https://jdbc.postgresql.org/download/postgresql-42.2.23.jar
 mv postgresql-42.2.23.jar postgresql-connector-java.jar
 cp postgresql-connector-java.jar /usr/share/java
-yum install -y python3-pip
-mkdir -p /usr/share/python3
+#yum install -y python3-pip
+#mkdir -p /usr/share/python3
 pip3 install psycopg2-binary==2.8.5 -t /usr/share/python3
 
 
