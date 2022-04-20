@@ -164,16 +164,17 @@ systemctl start httpd
 ### modify the repository in setup.sh, scripts/create_cluster.py ,templates/*json files
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
-sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDPCluster/setup*.sh
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
-sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
-sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
 sed -i "s?https://archive.cloudera.com/p?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
 sed -i "s?https://archive.cloudera.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/scripts/create_cluster*.py
 
+### if those repo also use local repo, replace it.
+sed -i "s/central.maven.org/`hostname -f`/g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://dev.mysql.com?http://`hostname -f`?g" ~/OneNodeCDPCluster/setup*.sh
+sed -i "s?https://repo.continuum.io?http://`hostname -f`?g" ~/OneNodeCDPCluster/templates/*.json
 
 ```
 ### deploy cluster
