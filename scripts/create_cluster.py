@@ -45,7 +45,7 @@ api_client = cm_client.ApiClient("http://localhost:7180/api/v45")
 cm_api = cm_client.ClouderaManagerResourceApi(api_client)
 
 # accept trial licence
-cm_api.begin_trial()
+#cm_api.begin_trial()
 
 # Install CM Agent on host
 with open ("/root/myRSAkey", "r") as f:
@@ -74,8 +74,8 @@ api_service.roles = [cm_client.ApiRole(type='SERVICEMONITOR'),
     cm_client.ApiRole(type='EVENTSERVER'),  
     cm_client.ApiRole(type='ALERTPUBLISHER')]
 
-mgmt_api.auto_assign_roles() # needed?
-mgmt_api.auto_configure()    # needed?
+#mgmt_api.auto_assign_roles() # needed?
+#mgmt_api.auto_configure()    # needed?
 mgmt_api.setup_cms(body=api_service)
 cmd = mgmt_api.start_command()
 wait(cmd)
