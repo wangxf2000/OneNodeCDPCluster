@@ -40,7 +40,7 @@ def wait(cmd, timeout=None):
 
 cm_client.configuration.username = 'admin'
 cm_client.configuration.password = 'admin'
-api_client = cm_client.ApiClient("http://localhost:7180/api/v44")
+api_client = cm_client.ApiClient("http://localhost:7180/api/v45")
 
 cm_api = cm_client.ClouderaManagerResourceApi(api_client)
 
@@ -55,7 +55,7 @@ instargs = cm_client.ApiHostInstallArguments(
     host_names=['YourHostname'], 
     user_name='root', 
     private_key=key, 
-    cm_repo_url='https://archive.cloudera.com/cm7/7.4.4/', 
+    cm_repo_url='https://archive.cloudera.com/cm7/7.6.1/', 
     java_install_strategy='NONE', 
     ssh_port=22, 
     passphrase='')
