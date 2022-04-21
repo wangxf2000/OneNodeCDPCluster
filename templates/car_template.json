@@ -1,0 +1,460 @@
+{
+    "cdhVersion": "7.1.7", 
+    "cmVersion": "7.6.1", 
+    "displayName": "OneNodeCluster", 
+    "hostTemplates": [
+        {
+            "cardinality": 1, 
+            "refName": "HostTemplate-0-from-YourHostname", 
+            "roleConfigGroupsRefNames": [
+                "cdsw-CDSW_APPLICATION-BASE", 
+                "cdsw-CDSW_DOCKER-BASE", 
+                "cdsw-CDSW_MASTER-BASE", 
+                "hdfs-BALANCER-BASE", 
+                "hdfs-DATANODE-BASE", 
+                "hdfs-NAMENODE-BASE", 
+                "hdfs-SECONDARYNAMENODE-BASE", 
+                "hive-GATEWAY-BASE", 
+                "hive-HIVEMETASTORE-BASE", 
+                "hue-HUE_LOAD_BALANCER-BASE", 
+                "hue-HUE_SERVER-BASE", 
+                "impala-CATALOGSERVER-BASE", 
+                "impala-IMPALAD-BASE", 
+                "impala-STATESTORE-BASE", 
+                "kafka-KAFKA_BROKER-BASE", 
+                "kudu-KUDU_MASTER-BASE", 
+                "kudu-KUDU_TSERVER-BASE", 
+                "nifi-NIFI_NODE-BASE", 
+                "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
+                "spark_on_yarn-GATEWAY-BASE", 
+                "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                "yarn-JOBHISTORY-BASE", 
+                "yarn-NODEMANAGER-BASE", 
+                "yarn-RESOURCEMANAGER-BASE", 
+                "zookeeper-SERVER-BASE"
+            ]
+        }
+    ], 
+    "instantiator": {
+        "clusterName": "OneNodeCluster", 
+        "hosts": [
+            {
+            "hostName":"YourHostname",
+            "hostTemplateRefName":"HostTemplate-0-from-YourHostname"
+            }
+        ], 
+        "lenient": false, 
+        "variables": [
+            {
+                "name": "hive-hive_metastore_database_host", 
+                "value": "YourHostname"
+            }, 
+            {
+                "name": "hive-hive_metastore_database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "hue-database_host", 
+                "value": "YourHostname"
+            }, 
+            {
+                "name": "hue-database_password", 
+                "value": "cloudera"
+            }, 
+            {
+                "name": "hue-database_type", 
+                "value": "mysql"
+            }, 
+            {
+                "name": "kudu-KUDU_MASTER-BASE-fs_data_dirs", 
+                "value": "/kudu/mas/dd"
+            }, 
+            {
+                "name": "kudu-KUDU_MASTER-BASE-fs_wal_dir", 
+                "value": "/kudu/mas/wal"
+            }, 
+            {
+                "name": "kudu-KUDU_TSERVER-BASE-fs_data_dirs", 
+                "value": "/kudu/tablet/dd"
+            }, 
+            {
+                "name": "kudu-KUDU_TSERVER-BASE-fs_wal_dir", 
+                "value": "/kudu/tablet/wal"
+            }
+        ]
+    }, 
+    "products": [
+        {
+            "product": "CDSW", 
+            "version": "1.10.0.p1.19362179"
+        }, 
+        {
+            "product": "CFM", 
+            "version": "2.1.3.0-125"
+        }, 
+        {
+            "product": "CDH", 
+            "version": "7.1.7-1.cdh7.1.7.p1000.24102687"
+        }
+    ], 
+    "repositories": [
+        "https://archive.cloudera.com/p/cdh7/7.1.7.1000/parcels/", 
+        "https://archive.cloudera.com/p/cfm2/2.1.3.0/redhat7/yum/tars/parcel/", 
+        "https://archive.cloudera.com/p/cdsw1/1.10.0/parcels/"
+    ], 
+    "services": [
+        {
+            "refName": "zookeeper", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "zookeeper-SERVER-BASE", 
+                    "roleType": "SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "service_config_suppression_server_count_validator", 
+                    "value": "true"
+                }
+            ], 
+            "serviceType": "ZOOKEEPER"
+        }, 
+        {
+            "refName": "hue", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_SERVER-BASE", 
+                    "roleType": "HUE_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hue-HUE_LOAD_BALANCER-BASE", 
+                    "roleType": "HUE_LOAD_BALANCER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "database_type", 
+                    "variable": "hue-database_type"
+                }, 
+                {
+                    "name": "database_password", 
+                    "variable": "hue-database_password"
+                }, 
+                {
+                    "name": "database_host", 
+                    "variable": "hue-database_host"
+                }
+            ], 
+            "serviceType": "HUE"
+        }, 
+        {
+            "refName": "spark_on_yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", 
+                    "roleType": "SPARK_YARN_HISTORY_SERVER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "spark_on_yarn-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }
+            ], 
+            "serviceType": "SPARK_ON_YARN"
+        }, 
+        {
+            "refName": "hdfs", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "erasure_coding_default_policy", 
+                            "value": " "
+                        }
+                    ], 
+                    "refName": "hdfs-NAMENODE-BASE", 
+                    "roleType": "NAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-SECONDARYNAMENODE-BASE", 
+                    "roleType": "SECONDARYNAMENODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-DATANODE-BASE", 
+                    "roleType": "DATANODE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hdfs-BALANCER-BASE", 
+                    "roleType": "BALANCER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "dfs_replication", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "service_config_suppression_datanode_count_validator", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "hdfs_under_replicated_blocks_thresholds", 
+                    "value": "{\"warning\":\"never\",\"critical\":\"never\"}"
+                }
+            ], 
+            "serviceType": "HDFS"
+        }, 
+        {
+            "refName": "kudu", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "fs_wal_dir", 
+                            "variable": "kudu-KUDU_MASTER-BASE-fs_wal_dir"
+                        }, 
+                        {
+                            "name": "fs_data_dirs", 
+                            "variable": "kudu-KUDU_MASTER-BASE-fs_data_dirs"
+                        }
+                    ], 
+                    "refName": "kudu-KUDU_MASTER-BASE", 
+                    "roleType": "KUDU_MASTER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "fs_wal_dir", 
+                            "variable": "kudu-KUDU_TSERVER-BASE-fs_wal_dir"
+                        }, 
+                        {
+                            "name": "fs_data_dirs", 
+                            "variable": "kudu-KUDU_TSERVER-BASE-fs_data_dirs"
+                        }
+                    ], 
+                    "refName": "kudu-KUDU_TSERVER-BASE", 
+                    "roleType": "KUDU_TSERVER"
+                }
+            ], 
+            "serviceType": "KUDU"
+        }, 
+        {
+            "refName": "impala", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "impala-IMPALAD-BASE", 
+                    "roleType": "IMPALAD"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "impala-STATESTORE-BASE", 
+                    "roleType": "STATESTORE"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "impala-CATALOGSERVER-BASE", 
+                    "roleType": "CATALOGSERVER"
+                }
+            ], 
+            "serviceType": "IMPALA"
+        }, 
+        {
+            "refName": "yarn", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "yarn-NODEMANAGER-BASE", 
+                    "roleType": "NODEMANAGER"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "yarn-JOBHISTORY-BASE", 
+                    "roleType": "JOBHISTORY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "yarn-RESOURCEMANAGER-BASE", 
+                    "roleType": "RESOURCEMANAGER"
+                }
+            ], 
+            "serviceType": "YARN"
+        }, 
+        {
+            "refName": "hive", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "hive-GATEWAY-BASE", 
+                    "roleType": "GATEWAY"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "hive-HIVEMETASTORE-BASE", 
+                    "roleType": "HIVEMETASTORE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hive_metastore_database_password", 
+                    "variable": "hive-hive_metastore_database_password"
+                }, 
+                {
+                    "name": "hive_metastore_database_host", 
+                    "variable": "hive-hive_metastore_database_host"
+                }
+            ], 
+            "serviceType": "HIVE"
+        }, 
+        {
+            "refName": "kafka", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "kafka-KAFKA_BROKER-BASE", 
+                    "roleType": "KAFKA_BROKER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "service_config_suppression_kafka_broker_count_validator", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "transaction.state.log.min.isr", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "transaction.state.log.replication.factor", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "service_config_suppression_transaction.state.log.replication.factor", 
+                    "value": "true"
+                }, 
+                {
+                    "name": "offsets.topic.replication.factor", 
+                    "value": "1"
+                }, 
+                {
+                    "name": "service_config_suppression_offsets.topic.replication.factor", 
+                    "value": "true"
+                }
+            ], 
+            "serviceType": "KAFKA"
+        }, 
+        {
+            "refName": "nifi", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "nifi-NIFI_NODE-BASE", 
+                    "roleType": "NIFI_NODE"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "zookeeper_service", 
+                    "ref": "zookeeper"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }
+            ], 
+            "serviceType": "NIFI"
+        }, 
+        {
+            "refName": "nifiregistry", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "nifiregistry-NIFI_REGISTRY_SERVER-BASE", 
+                    "roleType": "NIFI_REGISTRY_SERVER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "nifi_service", 
+                    "ref": "nifi"
+                }
+            ], 
+            "serviceType": "NIFIREGISTRY"
+        }, 
+        {
+            "refName": "cdsw", 
+            "roleConfigGroups": [
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_APPLICATION-BASE", 
+                    "roleType": "CDSW_APPLICATION"
+                }, 
+                {
+                    "base": true, 
+                    "refName": "cdsw-CDSW_MASTER-BASE", 
+                    "roleType": "CDSW_MASTER"
+                }, 
+                {
+                    "base": true, 
+                    "configs": [
+                        {
+                            "name": "cdsw.docker.devices.config", 
+                            "value": "YourDockerDevice"
+                        }
+                    ], 
+                    "refName": "cdsw-CDSW_DOCKER-BASE", 
+                    "roleType": "CDSW_DOCKER"
+                }
+            ], 
+            "serviceConfigs": [
+                {
+                    "name": "yarn_service", 
+                    "ref": "yarn"
+                }, 
+                {
+                    "name": "hive_service", 
+                    "ref": "hive"
+                }, 
+                {
+                    "name": "hdfs_service", 
+                    "ref": "hdfs"
+                }, 
+                {
+                    "name": "spark_on_yarn_service", 
+                    "ref": "spark_on_yarn"
+                }, 
+                {
+                    "name": "cdsw.master.ip.config", 
+                    "value": "YourPrivateIP"
+                }, 
+                {
+                    "name": "cdsw.domain.config", 
+                    "value": "YourCDSWDomain"
+                }
+            ], 
+            "serviceType": "CDSW"
+        }
+    ]
+}
