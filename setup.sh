@@ -1,4 +1,14 @@
 #! /bin/bash
+echo "-- Commencing SingleNodeCluster Setup Script"
+
+set -e
+set -u
+
+if [ "$USER" != "root" ]; then
+  echo "ERROR: This script ($0) must be executed by root"
+  exit 1
+fi
+
 echo "-- Configure and optimize the OS"
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
@@ -32,35 +42,86 @@ systemctl enable rngd
 # Check input parameters
 case "$1" in
         aws)
-            echo "server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4" >> /etc/chrony.conf
-            systemctl restart chronyd
-            ;;
+          sed -i.bak '/server 169.254.169.123/ d' /etc/chrony.conf
+          echo "server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4" >> /etc/chrony.conf
+          systemctl restart chronyd
+          export PUBLIC_DNS=cdp.${PUBLIC_IP}.nip.io
+          export PRIVATE_DNS=$(curl http://169.254.169.254/latest/meta-data/local-hostname)
+          export PRIVATE_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
+          ;;
         azure)
 # default root disk in most Azure Centos images is often small so second disk may be needed for /opt
 # if you are already using /opt before the CDH install you may need to adjust this step as appropriate
 # the temp disk used in the Cloudera Centos image on Azure on /mnt/resource may be an option if not persisting image
 #            umount /mnt/resource
 #            mount /dev/sdb1 /opt
-            echo "server time.windows.com prefer iburst minpoll 4 maxpoll 4" >> /etc/chrony.conf
-            systemctl restart chronyd
-            ;;
+          umount /mnt/resource
+          mount /dev/sdb1 /opt
+          export PUBLIC_DNS=$(TBD)
+          export PRIVATE_DNS=$(TBD)
+          export PRIVATE_IP=$(TBD)
+          ;;
         gcp)
-            ;;
+          export PRIVATE_DNS=$(curl -H "Metadata-Flavor: Google" http://169.254.169.254/computeMetadata/v1/instance/hostname)
+          export PUBLIC_DNS=$PRIVATE_DNS
+          export PRIVATE_IP=$(curl -s -H "Metadata-Flavor: Google" http://169.254.169.254/computeMetadata/v1/instance/network-interfaces/0/ip)
+          ;;
+        aliyun)
+          export PRIVATE_DNS=$(curl -s http://100.100.100.200/latest/meta-data/hostname)
+          [[ "$PRIVATE_DNS" == *"."* ]] || PRIVATE_DNS="${PRIVATE_DNS}.local"
+          export PRIVATE_IP=$(curl -s http://100.100.100.200/latest/meta-data/private-ipv4)
+          export PUBLIC_DNS=cdp.${PRIVATE_IP}.nip.io
+          ;;
         *)
-            echo $"Usage: $0 {aws|azure|gcp} template-file [docker-device]"
-            echo $"example: ./setup.sh azure templates/essential.json"
-            echo $"example: ./setup.sh aws template/cml.json /dev/xvdb"
-            exit 1
+          export PRIVATE_DNS=$(hostname -f)
+          [[ "$PRIVATE_DNS" == *"."* ]] || PRIVATE_DNS="${PRIVATE_DNS}.local"
+          export PUBLIC_DNS=$PRIVATE_DNS
+          export PRIVATE_IP=$(hostname -I | awk '{print $1}')
+          echo $"Usage: $0 {aws|azure|gcp|aliyun} template-file [docker-device]"
+          echo $"example: ./setup.sh azure templates/essential.json"
+          echo $"example: ./setup.sh aws template/cml.json /dev/xvdb"
+          exit 1
 esac
+
+if [ "$PUBLIC_DNS" == "" ]; then
+  echo "ERROR: Could not retrieve public DNS for this instance. Probably a transient error. Please try again."
+  exit 1
+fi
+
+export CLUSTER_HOST=$PUBLIC_DNS
+export CDSW_DOMAIN=cdsw${PUBLIC_DNS#cdp}
 
 TEMPLATE=$2
 DOCKERDEVICE=$3
 
 echo "-- Configure networking"
-PUBLIC_IP=`curl https://api.ipify.org/`
-hostnamectl set-hostname `hostname -f`
-echo "`hostname -I` `hostname`" >> /etc/hosts
-sed -i "s/HOSTNAME=.*/HOSTNAME=`hostname`/" /etc/sysconfig/network
+export PUBLIC_IP=$(curl -s http://ifconfig.me || curl -s http://api.ipify.org/)
+if [[ ! $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+  echo "ERROR: Could not retrieve public IP for this instance. Probably a transient error. Please try again."
+  exit 1
+fi
+
+echo "-- Set /etc/hosts - Public DNS must come first"
+sed -i.bak "/${LOCAL_HOSTNAME}/d;/^${PRIVATE_IP}/d;/^::1/d" /etc/hosts
+echo "$PRIVATE_IP $PUBLIC_DNS $PRIVATE_DNS $LOCAL_HOSTNAME" >> /etc/hosts
+
+echo "-- Force domain name"
+sed -i.bak '/kernel.domainname/d' /etc/sysctl.conf
+echo "kernel.domainname=${PUBLIC_DNS#*.}" >> /etc/sysctl.conf
+sysctl -p
+
+
+#hostnamectl set-hostname `hostname -f`
+#echo "`hostname -I` `hostname`" >> /etc/hosts
+#sed -i "s/HOSTNAME=.*/HOSTNAME=`hostname`/" /etc/sysconfig/network
+echo "-- Configure networking"
+hostnamectl set-hostname $CLUSTER_HOST
+if [[ -f /etc/sysconfig/network ]]; then
+  sed -i "/HOSTNAME=/ d" /etc/sysconfig/network
+fi
+echo "HOSTNAME=${CLUSTER_HOST}" >> /etc/sysconfig/network
+
+
 systemctl disable firewalld
 systemctl stop firewalld
 setenforce 0
@@ -240,7 +301,7 @@ pip install cm_client
 
 
 sed -i "s/YourHostname/`hostname -f`/g" $TEMPLATE
-sed -i "s/YourCDSWDomain/cdsw.$PUBLIC_IP.nip.io/g" $TEMPLATE
+sed -i "s/YourCDSWDomain/$CDSW_DOMAIN/g" $TEMPLATE
 sed -i "s/YourPrivateIP/`hostname -I | tr -d '[:space:]'`/g" $TEMPLATE
 sed -i "s#YourDockerDevice#$DOCKERDEVICE#g" $TEMPLATE
 
