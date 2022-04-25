@@ -1,8 +1,8 @@
 #! /bin/bash
 echo "-- Commencing SingleNodeCluster Setup Script"
 
-set -e
-set -u
+#set -e
+#set -u
 
 if [ "$USER" != "root" ]; then
   echo "ERROR: This script ($0) must be executed by root"
