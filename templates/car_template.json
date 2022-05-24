@@ -184,6 +184,7 @@
     "repositories": [
         "https://archive.cloudera.com/p/cdh7/7.1.7.1000/parcels/", 
         "https://archive.cloudera.com/p/csa/1.6.2.0/parcels/", 
+         "https://archive.cloudera.com/p/cfm2/2.1.3.0/redhat7/yum/tars/parcel/", 
         "https://archive.cloudera.com/p/cdsw1/1.10.0/parcels/"
     ], 
     "services": [
