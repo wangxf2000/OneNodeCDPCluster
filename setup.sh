@@ -39,6 +39,14 @@ systemctl enable rngd
 #yum install nodejs -y
 #npm install forever -g 
 
+echo "-- Configure networking"
+export PUBLIC_IP=$(curl -s http://ifconfig.me || curl -s http://api.ipify.org/)
+if [[ ! $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+  echo "ERROR: Could not retrieve public IP for this instance. Probably a transient error. Please try again."
+  exit 1
+fi
+
+
 # Check input parameters
 case "$1" in
         aws)
@@ -94,12 +102,6 @@ export CDSW_DOMAIN=cdsw${PUBLIC_DNS#cdp}
 TEMPLATE=$2
 DOCKERDEVICE=$3
 
-echo "-- Configure networking"
-export PUBLIC_IP=$(curl -s http://ifconfig.me || curl -s http://api.ipify.org/)
-if [[ ! $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-  echo "ERROR: Could not retrieve public IP for this instance. Probably a transient error. Please try again."
-  exit 1
-fi
 
 echo "-- Set /etc/hosts - Public DNS must come first"
 sed -i.bak "/${LOCAL_HOSTNAME}/d;/^${PRIVATE_IP}/d;/^::1/d" /etc/hosts
