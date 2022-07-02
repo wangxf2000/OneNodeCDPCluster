@@ -307,6 +307,10 @@
                             "variable": "kudu-KUDU_MASTER-BASE-fs_wal_dir"
                         }, 
                         {
+                            "name": "default_num_replicas", 
+                            "value": "1"
+                        }, 
+                        {
                             "name": "fs_data_dirs", 
                             "variable": "kudu-KUDU_MASTER-BASE-fs_data_dirs"
                         }
