@@ -222,8 +222,8 @@ pip3 install psycopg2-binary==2.8.5 -t /usr/share/python3
 
 
 echo "-- Install CSDs"
-wget https://archive.cloudera.com/p/csa/1.6.2.0/csd/FLINK-1.14.0-csa1.6.2.0-cdh7.1.7.0-551-23013538.jar -P /opt/cloudera/csd/
-wget https://archive.cloudera.com/p/csa/1.6.2.0/csd/SQL_STREAM_BUILDER-1.14.0-csa1.6.2.0-cdh7.1.7.0-551-23013538.jar  -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.7.0.0/csd/FLINK-1.14.0-csa1.7.0.0-cdh7.1.7.0-551-26280481.jar -P /opt/cloudera/csd/
+wget https://archive.cloudera.com/p/csa/1.7.0.0/csd/SQL_STREAM_BUILDER-1.14.0-csa1.7.0.0-cdh7.1.7.0-551-26280481.jar  -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/cdsw1/1.10.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDPDC-1.10.0.jar	 -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/cdsw1/1.10.0/csd/CLOUDERA_DATA_SCIENCE_WORKBENCH-CDH6-1.10.0.jar -P /opt/cloudera/csd/
 wget https://archive.cloudera.com/p/cfm2/2.1.3.0/redhat7/yum/tars/parcel/NIFI-1.15.2.2.1.3.0-125.jar  -P /opt/cloudera/csd/
