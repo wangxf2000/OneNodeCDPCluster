@@ -213,7 +213,7 @@ CREATE ROLE ssb_mve LOGIN PASSWORD 'cloudera';
 CREATE DATABASE ssb_mve OWNER ssb_mve ENCODING 'UTF8';
 EOF
 
-wget https://jdbc.postgresql.org/download/postgresql-42.2.23.jar
+wget https://jdbc.postgresql.org/download/postgresql-42.2.23.jar --no-check-certificate
 mv postgresql-42.2.23.jar postgresql-connector-java.jar
 cp postgresql-connector-java.jar /usr/share/java
 #yum install -y python3-pip
