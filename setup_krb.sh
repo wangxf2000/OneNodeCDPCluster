@@ -68,13 +68,13 @@ sed -i 's/SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 echo "-- Install CM and MariaDB"
 
 ## CM 7
-wget https://archive.cloudera.com/cm7/7.4.4/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cm7/7.6.1/redhat7/yum/cloudera-manager-trial.repo -P /etc/yum.repos.d/
 
-## MariaDB 10.1
+## MariaDB 10.5
 cat - >/etc/yum.repos.d/MariaDB.repo <<EOF
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.1/centos7-amd64
+baseurl = http://yum.mariadb.org/10.5/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
@@ -96,11 +96,11 @@ systemctl enable mariadb
 systemctl start mariadb
 
 echo "-- Install JDBC connector"
-wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.46.tar.gz -P ~
-tar zxf ~/mysql-connector-java-5.1.46.tar.gz -C ~
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.gz -P ~
+tar zxf ~/mysql-connector-java-5.1.48.tar.gz -C ~
 mkdir -p /usr/share/java/
-cp ~/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46-bin.jar /usr/share/java/mysql-connector-java.jar
-rm -rf ~/mysql-connector-java-5.1.46*
+cp ~/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar /usr/share/java/mysql-connector-java.jar
+rm -rf ~/mysql-connector-java-5.1.48*
 
 echo "-- Create DBs required by CM"
 mysql -u root < scripts/create_db.sql
