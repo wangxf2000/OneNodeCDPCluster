@@ -1,9 +1,6 @@
 CREATE DATABASE scm DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON scm.* TO 'scm'@'%' IDENTIFIED BY 'cloudera';
 
-CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-GRANT ALL ON amon.* TO 'amon'@'%' IDENTIFIED BY 'cloudera';
-
 CREATE DATABASE rman DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON rman.* TO 'rman'@'%' IDENTIFIED BY 'cloudera';
 
@@ -12,12 +9,6 @@ GRANT ALL ON hue.* TO 'hue'@'%' IDENTIFIED BY 'cloudera';
 
 CREATE DATABASE metastore DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON metastore.* TO 'hive'@'%' IDENTIFIED BY 'cloudera';
-
-CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-GRANT ALL ON nav.* TO 'nav'@'%' IDENTIFIED BY 'cloudera';
-
-CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-GRANT ALL ON navms.* TO 'navms'@'%' IDENTIFIED BY 'cloudera';
 
 CREATE DATABASE oozie DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON oozie.* TO 'oozie'@'%' IDENTIFIED BY 'cloudera';
@@ -37,6 +28,17 @@ GRANT ALL ON streamsmsgmgr.* TO 'streamsmsgmgr'@'%' IDENTIFIED BY 'cloudera';
 CREATE DATABASE ranger DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON ranger.* TO 'ranger'@'%' IDENTIFIED BY 'cloudera';
 
+CREATE DATABASE rangerkms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON rangerkms.* TO 'rangerkms'@'%' IDENTIFIED BY 'cloudera';
 
 CREATE DATABASE ssb_admin DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 GRANT ALL ON ssb_admin.* TO 'ssb_admin'@'%' IDENTIFIED BY 'cloudera';
+
+CREATE DATABASE nav DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON nav.* TO 'nav'@'%' IDENTIFIED BY 'cloudera';
+
+CREATE DATABASE navms DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON navms.* TO 'navms'@'%' IDENTIFIED BY 'cloudera';
+
+CREATE DATABASE amon DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL ON amon.* TO 'amon'@'%' IDENTIFIED BY 'cloudera';
